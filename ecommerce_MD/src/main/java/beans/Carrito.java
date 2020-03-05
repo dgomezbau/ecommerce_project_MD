@@ -5,7 +5,7 @@
  */
 package beans;
 
-import business.Articulo;
+import entity.Product;
 import java.util.Vector;
 
 /**
@@ -14,35 +14,36 @@ import java.util.Vector;
  */
 public class Carrito {
 
-    private Vector articulos = new Vector();
+    private Vector products = new Vector();
 
-    public Articulo sacar(Articulo a) {
-        int n = articulos.indexOf(a);
-        return (n < 0) ? null : (Articulo) articulos.get(n);
+    public Product sacar(Product p) {
+        int n = products.indexOf(p);
+        return (n < 0) ? null : (Product) products.get(n);
     }
 
-    public Articulo sacar(int c) {
-        Articulo a = new Articulo(c);
-        return (Articulo) articulos.get(c);
+    public Product sacar(int c) {
+        Product p = new Product();
+        p.setProdId(c);
+        return (Product) products.get(c);
 
     }
 
-    public void meter(Articulo a) {
-        Articulo ar = null;
-        int n = articulos.indexOf(a);
+    public void meter(Product p) {
+        Product pr = null;
+        int n = products.indexOf(p);
         if (n < 0) {
-            articulos.add(a);
+            products.add(p);
         } else {
-            ar = (Articulo) articulos.get(n);
-            ar.setCantidad(ar.getCantidad() + a.getCantidad());
+            pr = (Product) products.get(n);
+            pr.setCantidad(pr.getCantidad() + p.getCantidad()); //WORKING ON ADDING DUPLICATE PRODUCTS TO CART
         }
     }
 
     public void vaciar() {
-        articulos.clear();
+        products.clear();
     }
 
     public int cuantos() {
-        return articulos.size();
+        return products.size();
     }
 }

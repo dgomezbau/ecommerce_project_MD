@@ -36,9 +36,9 @@
                    
                 </li>
                 <li class="dropdown">
-                    <a    href="/buy/index.jsp" class="dropbtn">Buy</a>
+                    <a    href="catalog/productList.jsp" class="dropbtn">Buy</a>
                     <div class="dropdown-content">
-                        <a href="/buy/index.jsp">List items and buy</a>
+                        <a href="catalog/productList.jsp">List items and buy</a>
 
                     </div>
                 </li>

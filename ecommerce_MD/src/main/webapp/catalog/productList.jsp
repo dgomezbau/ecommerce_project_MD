@@ -1,13 +1,14 @@
 
-<%@include file="/etc/connection.jsp" %>
 <%@include file="/etc/header.jsp" %>
 
 <!-- body content -->
 
 <div>
-    <h1 class="titulo">List of items  to select and buy</h1>
+    <h1 class="titulo">CATALOG</h1>
   
-      
+    <%
+        //JPA CODE TO RETRIEVE PRODUCTS
+    %>      
    
  <form action="/cart/cart_put.jsp">
       <div class="texto">
@@ -19,21 +20,13 @@
 
 </tr>
 
-<%
-query="select id,descripcion, precio from articulos";
-rs=stmt.executeQuery(query);
-
-while (rs.next()){
-
-%>
 <tr>
    
-<td> <%=rs.getString(2)%> </td>
-<td> <%=rs.getDouble(3)%> </td>
-<td> <input type="text" name="<%=rs.getInt(1)%>"> </td>
+<td> <%="Nada"%> </td>
+<td> <%="Nada"%> </td>
+<td> <input type="text" name="<%="Nada"%>"> </td>
 </tr>
-<%}
-%>
+
 <tr>
    
 <td colspan="3">

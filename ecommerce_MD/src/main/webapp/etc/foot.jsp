@@ -7,6 +7,6 @@
 
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 
-<footer> Author</footer>
+<footer> Mihai Aurar & Daniel Gómez</footer>
 </body>
 </html>
