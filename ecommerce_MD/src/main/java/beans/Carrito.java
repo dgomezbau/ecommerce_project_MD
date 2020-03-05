@@ -6,6 +6,8 @@
 package beans;
 
 import entity.Product;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -14,9 +16,9 @@ import java.util.Vector;
  */
 public class Carrito {
 
-    private Vector products = new Vector();
+    private Map<Product, Integer> products = new HashMap();
 
-    public Product sacar(Product p) {
+    /*public Product sacar(Product p) {
         int n = products.indexOf(p);
         return (n < 0) ? null : (Product) products.get(n);
     }
@@ -26,24 +28,45 @@ public class Carrito {
         p.setProdId(c);
         return (Product) products.get(c);
 
-    }
-
-    public void meter(Product p) {
-        Product pr = null;
-        int n = products.indexOf(p);
-        if (n < 0) {
-            products.add(p);
+    }*/
+    public Product removeProductOne(Product p) {
+        if (products.containsKey(p)) {
+            if (products.get(p) == 1) {
+                products.remove(p);
+                return p;
+            } else if (products.get(p) > 1) {
+                products.replace(p, products.get(p) - 1);
+                return p;
+            } else {
+                return null;
+            }
         } else {
-            pr = (Product) products.get(n);
-            pr.setCantidad(pr.getCantidad() + p.getCantidad()); //WORKING ON ADDING DUPLICATE PRODUCTS TO CART
+            return null;
         }
     }
 
-    public void vaciar() {
+    public Product removeProductAll(Product p) {
+        if (products.containsKey(p)) {
+            products.remove(p);
+            return p;
+        } else {
+            return null;
+        }
+    }
+
+    public void addProduct(Product p) {
+        if (products.containsKey(p)) {
+            products.replace(p, products.get(p) + 1);
+        } else {
+            products.put(p, 1);
+        }
+    }
+
+    public void clearCart() {
         products.clear();
     }
 
-    public int cuantos() {
+    public int productsCount() {
         return products.size();
     }
 }
