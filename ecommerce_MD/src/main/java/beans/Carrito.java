@@ -29,6 +29,7 @@ public class Carrito {
         return (Product) products.get(c);
 
     }*/
+    
     public Product removeProductOne(Product p) {
         if (products.containsKey(p)) {
             if (products.get(p) == 1) {
