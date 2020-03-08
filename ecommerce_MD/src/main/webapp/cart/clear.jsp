@@ -1,21 +1,15 @@
-
 <%--
     Document   : cart_put.jsp
     Created on : 17-feb-2020, 17:59:09
-    Author     : david
+    Author     : Daniel Gómez
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page import="business.Articulo"%>
 <%@include file="/etc/header.jsp" %>
 
-<%@include file="/etc/connection.jsp" %>
 <jsp:useBean id="carrito" class="beans.Carrito" scope="session" /> 
 
-<%@page import="java.util.Enumeration"%>
-
-
-<%  carrito.vaciar();
+<%  carrito.clearCart();
 %>
 
 <!-- body content -->
