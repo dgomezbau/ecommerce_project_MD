@@ -5,68 +5,59 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page import="business.Articulo"%>
-<%@include file="/etc/header.jsp" %>
+<%@page import="entity.Product"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="javax.persistence.EntityManagerFactory"%>
 
-<%@include file="/etc/connection.jsp" %>
-<jsp:useBean id="carrito" class="beans.Carrito" scope="session" /> 
+<jsp:useBean id="carrito" class="beans.Carrito" scope="session" />
+
+<%@include file="/etc/header.jsp" %>
 
 <%@page import="java.util.Enumeration"%>
 
 
 <%  Enumeration enu = request.getParameterNames();
-    String nombre = "";
-    String valor = "";
+    String name = "";
+    String value = "";
 
     while (enu.hasMoreElements()) {
 
-        nombre = (String) (enu.nextElement());
-        int idArti = 0;
-        String des = "";
-        double pre = 0;
-        int can = 0;
+        name = (String) (enu.nextElement());
+        long prodId = 0;
+        String description = "";
+        double price = 0;
+        int quantity = 0;
 
-        if (!nombre.equals("b1")) {
+        if (!name.equals("b1")) {
+            value = request.getParameter(name);
 
-            valor = request.getParameter(nombre);
-
-            out.println(nombre + " " + valor);
-
-            try {
-                idArti = Integer.parseInt(nombre);
-
-            } catch (Exception e) {
-
-                idArti = 0;
-
-            }
+            //out.println(name + " " + value);
 
             try {
-                can = Integer.parseInt(valor);
-
+                prodId = Long.parseLong(name);
             } catch (Exception e) {
-
-                can = 0;
-
+                prodId = 0;
             }
-        if (can!=0){
-            query = "SELECT id, descripcion, precio FROm articulos WHERE id =" + idArti;
+            try {
+                quantity = Integer.parseInt(value);
+            } catch (Exception e) {
+                quantity = 0;
+            }
+            if (quantity>0){
 
-            rs = stmt.executeQuery(query);
+                EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+                EntityManager em = entityManagerFactory.createEntityManager();
 
-            if (rs.next()) {
+                Product prod = em.find(Product.class, prodId);
+                em.close();
+                entityManagerFactory.close();
 
-                des = rs.getString(2);
-                pre = rs.getDouble(3);
-                Articulo articulo = new Articulo(idArti, des, can, pre);
-                carrito.meter(articulo);
-
-            } else {
-
+                for(int i=0; i<quantity; i++){
+                    carrito.addProduct(prod);
+                }
             }
         }
-      }
-
     }
 %>
 
