@@ -13,14 +13,14 @@
 <html>
     <head>
         <title>Home</title>
-        <link rel="stylesheet" href="/css/myCSS.css" type="text/css">
+        <link rel="stylesheet" href="/ecommerce_MD/css/myCSS.css" type="text/css">
     </head>
     <body>
         <header>
             <div >
                 <table  style='background-color: #ddddff;width:100%'>
                     <tr>
-                        <td style='background-color: white'><img src="/images/logo.png" width="80" alt="logo servlet"/></td>
+                        <td style='background-color: white'><img src="/ecommerce_MD/images/logo.png" width="80" alt="logo servlet"/></td>
                         <td width="80%"><h1 class="center">Games eCommerce</h1></td>
                         <td ><h4 class="center">User:<br><%= ctrl.getNameUser()%></h4></td>
 
