@@ -6,13 +6,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
-
 <%@page import="entity.Product"%>
-
 <jsp:useBean id="cart" class="beans.Cart" scope="session" />
 <%@page import="java.util.Map"%>
-
-
 <%@include file="/etc/header.jsp" %>
 
 <!-- body content -->

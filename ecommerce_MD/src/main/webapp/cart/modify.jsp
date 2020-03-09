@@ -16,28 +16,37 @@
 
 <!-- body content -->
 <div>
-    <h1 class="titulo">Modify shopping-cart (pending)</h1>
-  
-    <table border="1">
-        <tr>
-            <td> Description </td>
-            <td> Price </td>
-            <td> Quantity </td>
-        </tr>
+    <h1 class="titulo">Modify shopping-cart</h1>
 
 
-        <%  Articulo articulo = null;
-           for (int i = 0; i < carrito.cuantos(); i++) {
-               articulo = (Articulo) carrito.sacar(i);
-       %>
+        <div class="texto">
+            <table border="1">
+                <tr>
+                    <td> Name </td>
+                    <td> Description </td>
+                    <td> Price </td>
+                    <td> Quantity </td>
+                    <td>  </td>
 
-        <tr>
-            <td><%=articulo.getDescripcion()%></td>
-            <td><%=articulo.getPrecio()%></td>
-            <td><%=articulo.getCantidad()%></td>
-        </tr> 
+                </tr>
 
-        <%}%>
-    </table>
+                <tr>
+
+                    <td> <%="Name Hardcoded"%> </td>
+                    <td> <%="Description Hardcoded"%> </td>
+                    <td> <%="Price Hardcoded"%> </td>
+                    <td> <%="Quantity Hardcoded"%> </td>
+                    <%//Can we use de product id to the name or id or parameter to the submit in order to identify the line in the table user is clicking??%>
+                    <form name="f1" action="delete.jsp" >
+                        <td> <input id="" type="submit" name="b1" value="Remove" > </td>
+                    </form>
+                    
+                </tr>
+            </table>
+
+        </div>
+
+
+
 </div>
 <%@include file="/etc/foot.jsp" %>
