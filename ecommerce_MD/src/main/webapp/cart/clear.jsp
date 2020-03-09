@@ -7,9 +7,9 @@
 
 <%@include file="/etc/header.jsp" %>
 
-<jsp:useBean id="carrito" class="beans.Carrito" scope="session" /> 
+<jsp:useBean id="cart" class="beans.Cart" scope="session" /> 
 
-<%  carrito.clearCart();
+<%  cart.clearCart();
 %>
 
 <!-- body content -->

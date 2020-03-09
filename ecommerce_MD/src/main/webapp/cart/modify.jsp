@@ -6,10 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 
-<%@page import="business.Articulo"%>
-<%@page import="java.util.Enumeration"%>
+<%@page import="entity.Product"%>
+<%@page import="java.util.Map"%>
 
-<jsp:useBean id="carrito" class="beans.Carrito" scope="session" />  
+<jsp:useBean id="carrito" class="beans.Cart" scope="session" />  
 
 
 <%@include file="/etc/header.jsp" %>

@@ -10,7 +10,7 @@
 <%@page import="javax.persistence.Persistence"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
 
-<jsp:useBean id="carrito" class="beans.Carrito" scope="session" />
+<jsp:useBean id="cart" class="beans.Cart" scope="session" />
 
 <%@include file="/etc/header.jsp" %>
 
@@ -54,7 +54,7 @@
                 entityManagerFactory.close();
 
                 for(int i=0; i<quantity; i++){
-                    carrito.addProduct(prod);
+                    cart.addProduct(prod);
                 }
             }
         }

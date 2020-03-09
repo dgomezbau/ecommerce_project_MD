@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Daniel Gomez
  */
-public class Carrito {
+public class Cart {
 
     private Map<Product, Integer> products = new HashMap();
 
@@ -30,6 +30,10 @@ public class Carrito {
 
     }*/
     
+    public Map<Product, Integer> getProducts() {
+        return products;
+    }
+
     public Product removeProductOne(Product p) {
         if (products.containsKey(p)) {
             if (products.get(p) == 1) {
