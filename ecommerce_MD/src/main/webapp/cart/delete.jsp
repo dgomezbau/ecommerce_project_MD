@@ -19,12 +19,18 @@
 
 
 <%  Enumeration enu = request.getParameterNames();
-    String name = "";
-    String value = "";
 
-    while (enu.hasMoreElements()) {
+    long productId = Long.parseLong((String)enu.nextElement());
+    
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+    EntityManager em = entityManagerFactory.createEntityManager();
+
+    Product productToRemove = em.find(Product.class, productId);
+    em.close();
+    entityManagerFactory.close();
+                
+    cart.removeProductAll(productToRemove);
+    
+    response.sendRedirect("modify.jsp");
     
     %>
-    <h2> <%=enu.nextElement()%> </h2>
-        
-    <% } %>
