@@ -37,7 +37,6 @@
     <div class="texto">
         <table border="1">
             
-            
             <tr>
                 <td> Name </td>
                 <td> Description </td>
@@ -82,10 +81,6 @@
                 <input id="" type="submit" name="b1" value="Keep buying" >
             </form>
         </div>
-
     </div>
-
-
-
 </div>
 <%@include file="/etc/foot.jsp" %>
