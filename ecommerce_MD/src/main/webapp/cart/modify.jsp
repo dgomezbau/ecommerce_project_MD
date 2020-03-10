@@ -48,20 +48,25 @@
             </tr>
                <%  Map<Product, Integer> prodMap = cart.getProducts();
             Product prod = null;
-            
+            double totalPrice = 0;
             for (Product p: prodMap.keySet()) {
                prod = p;
+               totalPrice = totalPrice + (Double.parseDouble(prod.getPrice())*prodMap.get(prod));
             %>
             <tr>
 
                 <td><%=prod.getProdName()%></td>
                 <td><%=prod.getProdDescription()%></td>
-                <td><%=prod.getPrice()%></td>
+                <td><%=prod.getPrice()%> €</td>
                 <td><%=prodMap.get(prod)%></td>
             <form name="f1" action="delete.jsp" >
                 <td> <input id="" type="submit" name="<%=prod.getProdId()%>" value="Remove" > </td>
             </form>
             <%}%>
+            </tr>
+            
+            <tr>
+               <td>Total: <%=totalPrice%> €</td> 
             </tr>
 
         </table>
