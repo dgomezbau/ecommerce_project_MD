@@ -8,7 +8,6 @@ package beans;
 import entity.Product;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  *
@@ -29,42 +28,56 @@ public class Cart {
         return (Product) products.get(c);
 
     }*/
-    
     public Map<Product, Integer> getProducts() {
         return products;
     }
 
-    public Product removeProductOne(Product p) {
-        if (products.containsKey(p)) {
-            if (products.get(p) == 1) {
-                products.remove(p);
-                return p;
-            } else if (products.get(p) > 1) {
-                products.replace(p, products.get(p) - 1);
-                return p;
-            } else {
-                return null;
+    public Product removeProductOne(Product prod) {
+        long prodId = prod.getProdId();
+        if (products.isEmpty()) {
+            return null;
+        } else {
+            for (Product p : products.keySet()) {
+                if (p.getProdId() == prodId) {
+                    if (products.get(p) == 1) {
+                        products.remove(p);
+                    } else {
+                        products.replace(p, products.get(p) - 1);
+                    }
+                }
             }
-        } else {
-            return null;
+            return prod;
         }
     }
 
-    public Product removeProductAll(Product p) {
-        if (products.containsKey(p)) {
-            products.remove(p);
-            return p;
-        } else {
+    public Product removeProductAll(Product prod) {
+        long prodId = prod.getProdId();
+        if (products.isEmpty()) {
             return null;
+        } else {
+            for (Product p : products.keySet()) {
+                if (p.getProdId() == prodId) {
+                    products.remove(p);
+                }
+            }
+            return prod;
         }
     }
 
-    public void addProduct(Product p) {
-        if (products.containsKey(p)) {
-            products.replace(p, products.get(p) + 1);
+    public void addProduct(Product prod) {
+        long prodId = prod.getProdId();
+        if (products.isEmpty()) {
+            products.put(prod, 1);
         } else {
-            products.put(p, 1);
+            for (Product p : products.keySet()) {
+                if (p.getProdId() == prodId) {
+                    products.replace(p, products.get(p) + 1);
+                } else {
+                    products.put(prod, 1);
+                }
+            }
         }
+
     }
 
     public void clearCart() {
