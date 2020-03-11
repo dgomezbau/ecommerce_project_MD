@@ -1,5 +1,6 @@
 package entity;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.Collection;
@@ -9,7 +10,7 @@ import java.util.Date;
  * Customer Entity - maps to CUSTOMER table
  */
 @Entity(name = "CUSTOMER")
-public class Customer {
+public class Customer implements Serializable {
 
     @Id //signifies the primary key
     @Column(name = "CUST_ID", nullable = false)

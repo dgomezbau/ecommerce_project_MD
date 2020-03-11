@@ -1,5 +1,6 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
  * INVOICE Entity - maps to ORDER_INVOICE table
  */
 @Entity(name = "ORDER_INVOICE")
-public class Invoice {
+public class Invoice implements Serializable {
 
     @Id //signifies the primary key
     @Column(name = "INVOICE_ID", nullable = false)

@@ -9,6 +9,7 @@
 <%@page import="javax.persistence.EntityManagerFactory"%>
 <%@page import="entity.Product"%>
 <%@page import="entity.Customer"%>
+<%@page import="entity.Order"%>
 <%@page import="java.util.Map"%>
 
 
@@ -61,7 +62,6 @@
                 <td> Description </td>
                 <td> Price </td>
                 <td> Quantity </td>
-                <td>  </td>
 
             </tr>
             <%  Map<Product, Integer> prodMap = cart.getProducts();
@@ -77,9 +77,6 @@
                 <td><%=prod.getProdDescription()%></td>
                 <td><%=prod.getPrice()%> €</td>
                 <td><%=prodMap.get(prod)%></td>
-            <form name="f1" action="delete.jsp" >
-                <td> <input id="" type="submit" name="<%=prod.getProdId()%>" value="Remove" > </td>
-            </form>
             <%}%>
             </tr>
 
@@ -93,9 +90,10 @@
             <form name="f1" action="/ecommerce_MD/index.html" style="float: left;" >
                 <input id="" type="submit" name="b1" value="Cancel" >
             </form>
-            <form name="f1" action="invoices.jsp" style="float: left;">
+            <form name="f1" action="createOrderAndInvoice.jsp" style="float: left;">
                 <input id="" type="submit" name="b1" value="Pay" >
             </form>
         </div>
     </div>
 </div>
+<%@include file="/etc/foot.jsp" %>
