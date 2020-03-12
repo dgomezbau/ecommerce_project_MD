@@ -1,8 +1,8 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,17 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 
 /*
  * Order Entity - maps to ORDERS table
  */
 @Entity(name = "ORDERS")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @Column(name = "ORDER_ID", nullable = false)
@@ -55,7 +53,8 @@ public class Order {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ORDER_DETAIL",
             joinColumns
-            = @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID"),
+            = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID"),
+                @JoinColumn(name = "PRICE", referencedColumnName = "TOTAL_PRICE")},
             inverseJoinColumns
             = @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     )
