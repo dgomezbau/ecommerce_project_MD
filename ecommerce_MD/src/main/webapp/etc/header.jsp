@@ -55,9 +55,9 @@
                     </div>
                 </li>
                 <li class="dropdown">
-                    <a href="" class="dropbtn">My invoices</a>
+                    <a href="/ecommerce_MD/invoices/invoiceList.jsp" class="dropbtn">My invoices</a>
                     <div class="dropdown-content">
-                        <a href="">List</a>
+                        <a href="/ecommerce_MD/invoices/invoiceList.jsp">List</a>
                                            </div>
                 </li>
                 

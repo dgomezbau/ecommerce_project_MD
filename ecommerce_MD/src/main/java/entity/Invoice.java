@@ -9,8 +9,15 @@ import javax.persistence.*;
  * INVOICE Entity - maps to ORDER_INVOICE table
  */
 @Entity(name = "ORDER_INVOICE")
-public class Invoice implements Serializable {
 
+@NamedQueries({
+    @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e")})
+
+public class Invoice implements Serializable {
+    
+    
+            
+            
     @Id //signifies the primary key
     @Column(name = "INVOICE_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
