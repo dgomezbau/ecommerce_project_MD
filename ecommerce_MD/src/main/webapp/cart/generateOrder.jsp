@@ -36,10 +36,6 @@
         EntityManager em = entityManagerFactory.createEntityManager();
         
         Customer customer = em.find(Customer.class, cusID);
-        
-        
-        
-        
     %>
 
     <div class="texto">
@@ -99,7 +95,7 @@
             <form name="f1" action="/ecommerce_MD/index.html" style="float: left;" >
                 <input id="" type="submit" name="b1" value="Cancel" >
             </form>
-            <form name="f1" action="createOrderAndInvoice.jsp" style="float: left;">
+            <form name="f1" action="createOrderAndInvoiceInDB.jsp" style="float: left;">
                 <input id="" type="submit" name="b1" value="Pay" >
             </form>
         </div>
@@ -134,16 +130,10 @@
     
     order.setInvoice(invoice);
     
-    
-    //OrderJpaController ojc = new OrderJpaController(entityManagerFactory);
-    
-    em.getTransaction().begin();
-    em.persist(order);
-    em.getTransaction().commit();
+    cart.setOrder(order);
     
     em.close();
     entityManagerFactory.close();
 
-
-                    %>
+    %>
 <%@include file="/etc/foot.jsp" %>

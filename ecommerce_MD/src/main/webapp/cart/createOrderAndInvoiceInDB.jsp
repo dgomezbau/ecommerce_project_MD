@@ -20,26 +20,19 @@
 
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 
-<%@include file="/etc/header.jsp"%>
-
-<%EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
-   EntityManager em = entityManagerFactory.createEntityManager();
+<%  EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+    EntityManager em = entityManagerFactory.createEntityManager();
     
-    //OrderJpaController ojc = new OrderJpaController(entityManagerFactory);
-    Order ord = new Order();
-    ord.setCustId(100);
+    Order order = cart.getOrder();
+    
     em.getTransaction().begin();
-    em.persist(ord);
+    em.persist(order);
     em.getTransaction().commit();
+    
+    em.close();
+    entityManagerFactory.close();
+    
+    cart.clearCart();
+    response.sendRedirect("../home/index.jsp");
 
     %>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
-<%@include file="/etc/foot.jsp" %>

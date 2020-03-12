@@ -26,7 +26,7 @@
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        Product product_sample = em.find(Product.class, 2000L);
+        Product product_sample = em.find(Product.class, 2030L);
         em.close();
         entityManagerFactory.close();
                 
