@@ -27,7 +27,10 @@
     
     //OrderJpaController ojc = new OrderJpaController(entityManagerFactory);
     Order ord = new Order();
+    ord.setCustId(100);
+    em.getTransaction().begin();
     em.persist(ord);
+    em.getTransaction().commit();
 
     %>
 <html>

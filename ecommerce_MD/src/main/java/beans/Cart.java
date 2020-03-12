@@ -5,6 +5,7 @@
  */
 package beans;
 
+import entity.Order;
 import entity.Product;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,8 @@ import java.util.Map;
 public class Cart {
 
     private Map<Product, Integer> products = new HashMap();
+    
+    private Order order;
 
     /*public Product sacar(Product p) {
         int n = products.indexOf(p);
@@ -30,6 +33,14 @@ public class Cart {
     }*/
     public Map<Product, Integer> getProducts() {
         return products;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Product removeProductOne(Product prod) {

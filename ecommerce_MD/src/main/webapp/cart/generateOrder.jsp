@@ -4,6 +4,12 @@
     Author     : Daniel Gomez
 --%>
 
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
+<%@page import="entity.Invoice"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Collection"%>
 <%@page import="javax.persistence.EntityManager"%>
 <%@page import="javax.persistence.Persistence"%>
 <%@page import="javax.persistence.EntityManagerFactory"%>
@@ -30,8 +36,9 @@
         EntityManager em = entityManagerFactory.createEntityManager();
         
         Customer customer = em.find(Customer.class, cusID);
-        em.close();
-        entityManagerFactory.close();
+        
+        
+        
         
     %>
 
@@ -65,9 +72,11 @@
 
             </tr>
             <%  Map<Product, Integer> prodMap = cart.getProducts();
+                List<Product> prodList = new ArrayList();
                 Product prod = null;
                 double totalPrice = 0;
                 for (Product p : prodMap.keySet()) {
+                    prodList.add(p);
                     prod = p;
                     totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * prodMap.get(prod));
             %>
@@ -96,4 +105,45 @@
         </div>
     </div>
 </div>
+    
+
+    <%! 
+
+    String todayDate(){
+        java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyyMMdd");
+        String StringDate = format.format(date);
+        return StringDate;
+    }
+    %>
+    
+    <%Order order = new Order();
+    Invoice invoice = new Invoice();
+    
+    order.setCustId(customer.getCustId());
+    order.setTotPrice(totalPrice);
+    order.setOrderDesc("Test Description");
+    order.setOrderDt(new Date());
+    order.setProductList(prodList);
+    order.setUpdatedTime(new Date());
+    
+    invoice.setAmountDue(totalPrice);
+    invoice.setOrder(order);
+    invoice.setOrderRaisedDt(new Date());
+    invoice.setUpdatedTime(new Date());
+    
+    order.setInvoice(invoice);
+    
+    
+    //OrderJpaController ojc = new OrderJpaController(entityManagerFactory);
+    
+    em.getTransaction().begin();
+    em.persist(order);
+    em.getTransaction().commit();
+    
+    em.close();
+    entityManagerFactory.close();
+
+
+                    %>
 <%@include file="/etc/foot.jsp" %>
