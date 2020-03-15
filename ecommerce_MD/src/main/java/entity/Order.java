@@ -50,14 +50,24 @@ public class Order implements Serializable {
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID", updatable = false, insertable = false)
     private Customer customer;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    /*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ORDER_DETAIL",
             joinColumns
             = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID"),
                 @JoinColumn(name = "PRICE", referencedColumnName = "TOTAL_PRICE")},
             inverseJoinColumns
             = @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
+    )*/
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ORDER_DETAIL",
+            joinColumns
+            = @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID"),
+            inverseJoinColumns
+            = {@JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID"),
+            @JoinColumn(name = "PRICE", referencedColumnName = "REGULAR_PRICE")}
     )
+    
     private List<Product> productList;
 
     //@Version
