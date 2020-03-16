@@ -26,7 +26,7 @@
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        Product product_sample = em.find(Product.class, 2000L);
+        Product product_sample = em.find(Product.class, 2030L);
         em.close();
         entityManagerFactory.close();
                 
@@ -58,8 +58,16 @@
                 <td><%=prod.getProdDescription()%></td>
                 <td><%=prod.getPrice()%> €</td>
                 <td><%=prodMap.get(prod)%></td>
-            <form name="f1" action="delete.jsp" >
-                <td> <input id="" type="submit" name="<%=prod.getProdId()%>" value="Remove" > </td>
+                
+                <td>
+            <form name="f1" action="addOne.jsp" style="float: left;" >
+                <input id="" type="submit" name="<%=prod.getProdId()%>" value=" + " >
+            </form>
+            <form name="f1" action="deleteOne.jsp" style="float: left;" >
+                <input id="" type="submit" name="<%=prod.getProdId()%>" value=" - " >
+            </form>
+            <form name="f1" action="delete.jsp" style="float: left;" >
+                 <input id="" type="submit" name="<%=prod.getProdId()%>" value="Remove all" > </td>
             </form>
             <%}%>
             </tr>
