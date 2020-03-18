@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="./../etc/pageTemplate.xhtml">
+            <ui:define name="content">
+                <h1 class="ui-widget-header ui-corner-all" align="center">p:dataTable Basics</h1>
+                <br/>
+                <p>The basic idea is that you use "var" to make a local variable that will
+                    refer to each item in "value". Then, you make a snapshot of a row 
+                    with p:column and a property of the local variable. However, most real
+                    tables also need headers, footers, style sheets, and the like. These options
+                    are discussed in the later sections of this tutorial.</p>
+
+                <p:fieldset legend="User Data">
+                    <br/>
+
+                    <p:dataTable var="programmer"
+                                 value="#{fud.userPar}">
+                        <p:column>#{userInfo.name}</p:column>
+                        <p:column>#{userInfo.name2}</p:column>
+                    </p:dataTable>
+
+                    <br/>
+                </p:fieldset>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
