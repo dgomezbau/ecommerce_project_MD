@@ -1,0 +1,5 @@
+table.zebra tr:nth-child(odd) td {
+  background-color: #dddddd;
+}
+.green { color: green }
+.red { color: red }
