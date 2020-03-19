@@ -19,8 +19,10 @@
 
     <h:form>
         <p:menubar>
-            <p:menuitem value="Home" url="./../home/index.jsf" />
-            <p:menuitem value="Login" url="./../home/homePageUser.jsf" />
+            <p:menuitem value="Home" url="./../home/homePageUser.jsf" />
+            <p:menuitem value="Catalog" url="./../catalog/productList.jsf" />
+            <p:menuitem value="Cart" url="./../cart/cartList.jsf" />
+            <p:menuitem value="Invoices" url="./../Invoices/invoicesList.jsf" />
 
             <f:facet name="options">
                 <p:inputText value="#{searchController.searchString}"

@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:20%">
+                    <a href="http://primefaces.org/"><img src="../images/logo.png" height="50"/></a>
+                </td>
+                <td style="width:60%">
+                    <h1 class="title">JSF 2.3. PRIMEFACES exercises</h1></td>
+                <td style="width:20%;text-align:center;border: 3px solid green"><h5>Version 1.0</h5></td>
+            </tr>
+        </table>
+        <hr style="margin-top: 1px"/>
+    </div>
+
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Home" url="./../home/index.jsf" />
+            <p:submenu label="Introduction">
+                <p:menuitem value="Spinner" title="Spinner and Calendar without server" url="./../intro/SpinCalNoServer.jsf" />
+                <p:menuitem value="Spinner and Calendar with server" url="./../intro/SpinCalWithServer.jsf" />
+                <p:menuitem value="Commands Send and Cancel " url="./../intro/SpinCalWithServerCancel.jsf" />
+            </p:submenu>
+            <p:submenu label="Inputs">
+                <p:submenu label="Dates">
+                    <p:menuitem value="Basic popup calendar" url="./../date-input/date-input-1.jsf"/>
+                    <p:menuitem value="Inline calendar" url="./../date-input/date-input-2.jsf"/>
+                    <p:menuitem value="Ajax updates" url="./../date-input/date-input-3.jsf"/>
+                    <p:menuitem value=" Some calendars  and various  visual appearances" url="./../date-input/date-input-4.jsf"/>
+                    <p:menuitem value="Animation effects" url="./../date-input/date-input-5.jsf"/>
+                    <p:menuitem value="Selecting times as well as dates" url="./../date-input/date-input-6.jsf"/>
+                </p:submenu>
+                <p:submenu label="Numbers" >
+                    <p:menuitem value="Spinners" url="./../number-input/spinners.jsf"/>
+                    <p:menuitem value="Slider" url="./../number-input/sliders.jsf"/>
+                    <p:menuitem value="Rating bars" url="./../number-input/ratings.jsf"/>
+                </p:submenu>
+                <p:submenu label="Strings" >
+                    <p:menuitem value="Autocompleter. No free text" url="./../stringInput/autocomplete-1.jsf"/>
+                    <p:menuitem value="Autocompleter with free text" url="./../stringInput/autocomplete-2.jsf"/>
+                    <p:menuitem value="Autocompleter with multiple entries." url="./../stringInput/autocomplete-3.jsf"/>
+                    <p:menuitem value="Input-mask textfields" url="./../stringInput/input-mask.jsf"/>
+                    <p:menuitem value="_____________________" />
+                    <p:menuitem value="Color picker" url="./../stringInput/colorpicker.jsf"/>
+                    <p:menuitem value="Implace" url="./../stringInput/inplace.jsf"/>
+                    <p:menuitem value="Password." url="./../stringInput/password.jsf"/>
+                </p:submenu>    
+            </p:submenu>   
+            <p:submenu label="AJAX" >
+                <p:menuitem value="No Ajax" url="./../ajax/noAjax.jsf"/>
+                <p:menuitem value="Using Update" url="./../ajax/usingUpdate.jsf"/>
+                <p:menuitem value="Using Process" url="./../ajax/usingProcess.jsf"/>
+                <p:menuitem value="Ajax Validation Update" url="./../ajax/validationUpdate.jsf"/>
+                <p:menuitem value="Ajax Validation Autoupdate" url="./../ajax/validationAutoUpdate.jsf"/>       
+                <p:menuitem value="Using 'event' with Standard DOM Events" url="./../ajax/usingEvent.jsf"/>        
+                <p:menuitem value="Using 'event' with Custom PrimeFaces Events" url="./../ajax/usingCustomEvent.jsf"/>
+                <p:menuitem value="Using p:ajaxStatus" url="./../ajax/usingAjaxStatus.jsf"/>
+                <p:menuitem value="Several examples" url="./../ajax/examples.jsf"/>
+
+                <p:menuitem value="_____________________" />
+            </p:submenu>
+            <p:submenu label="Overlays" >
+                <p:menuitem value="Message input" url="./../overlays/editor1.jsf"/>
+                <p:menuitem value="Replaced h:message" url="./../overlays/editor2.jsf"/>
+                <p:menuitem value="Added p:tooltip" url="./../overlays/editor3.jsf"/>
+                <p:menuitem value="Replaced p:growl" url="./../overlays/editor4.jsf"/>
+                <p:menuitem value="Use of p:dialog" url="./../overlays/editor5.jsf"/>
+                <p:menuitem value="Using p:confirmDialog" url="./../overlays/confirmation.jsf"/>
+            </p:submenu>
+            <p:submenu label="Panels" >
+                <p:menuitem value="Accordion panel, static content" url="./../panels/accordionpanel-1.jsf"/>
+                <p:menuitem value="Accordion panel, lazy loading" url="./../panels/accordionpanel-2.jsf"/>
+                <p:menuitem value="Accordion panel, dynamic content" url="./../panels/accordionpanel-3.jsf"/>
+                <p:menuitem value="Tables, p:panelGrid" url="./../panels/panelgrid.jsf"/>
+
+                <p:menuitem value="Tabbed panels" url="./../panels/tabview.jsf"/>
+                <p:menuitem value="Scroll panels" url="./../panels/scrollpanel.jsf"/>
+                <p:menuitem value="Dashboards, drag-and-drop" url="./../panels/dashboard.jsf"
+                            title="The var and value attributes of "/>
+
+            </p:submenu>
+            <p:submenu label="Tables" >
+                <p:menuitem value="Basic table" title="Attributes of p:dataTable, and the nested p:column element" url="./../tables/basics.jsf"/>
+                <p:menuitem value="Headers" title="headerText for columns, f:facet with header for overall table" url="./../tables/headers.jsf"/>
+                <p:menuitem value="Styling" title="Styles from the current theme for the table as a whole and to style various rows differently" url="./../tables/styling.jsf"/>
+                <p:menuitem value="Resizable columns" title="Designating resizableColumns lets the end user drag to shrink or expand the column width" url="./../tables/resizable.jsf"/>
+                <p:menuitem value="Sorting" title="sortBy and optionally sortFunction" url="./../tables/sorting.jsf"/>
+                <p:menuitem value="Pagination" title="'paginator' to automatically get controls to move forward and backward in the data" url="./../tables/pagination.jsf"/>
+            </p:submenu>
+
+            <p:submenu label="Menus" >
+            </p:submenu>
+            <p:submenu label="Charts" >
+                <p:menuitem value="different charts" url="./../charts/index.jsf"/>
+            </p:submenu>
+            <p:submenu label="Themes" >
+            </p:submenu>
+
+
+
+
+            <f:facet name="options">
+                <p:inputText value="#{searchController.searchString}"
+                             placeholder="Search Text"
+                             style="margin-right:0px"/>
+                <p:commandButton value="Google It" icon="ui-icon-search"
+                                 action="#{searchController.doSearch}"
+                                 ajax="false"/>
+            </f:facet>
+
+        </p:menubar>
+    </h:form>
+</ui:composition>
