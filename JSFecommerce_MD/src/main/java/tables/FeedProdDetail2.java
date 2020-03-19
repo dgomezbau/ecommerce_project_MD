@@ -22,15 +22,13 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Daniel Gomez
  */
-@Named(value = "feedProdDetail")
-@SessionScoped
-//@RequestScoped
-public class FeedProdDetail implements Serializable {
+
+public class FeedProdDetail2{
 
     ProductPE ProdPE = new ProductPE();
     
 
-    public FeedProdDetail() {
+    public FeedProdDetail2() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
         String id = request.getParameter("id");

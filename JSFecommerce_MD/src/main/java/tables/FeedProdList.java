@@ -5,16 +5,19 @@
  */
 package tables;
 
+import peentity.ProductPE;
 import entity.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -46,15 +49,23 @@ public class FeedProdList implements Serializable{
         pPE.setOrderList(p.getOrderList());
         
         listProdPE.add(pPE);
-        
-        System.err.println("Llega hasta aquí: " + pPE.getName());
-        counter++;
-        System.err.println(counter);
     }
     
     em.close();
     entityManagerFactory.close();
  
+    }
+    
+    public long getParam(){
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        String id = request.getParameter("id");
+        long idl;
+        try {
+            return idl = Long.parseLong(id);
+        } catch (Exception e) {
+            return idl = 0;
+        }
     }
 
     public List<ProductPE> getListProdPE() {

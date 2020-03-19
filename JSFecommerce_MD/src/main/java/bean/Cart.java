@@ -13,20 +13,30 @@ import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.servlet.http.HttpServletRequest;
+import peentity.ProductPE;
 
 @Named(value = "cart")
 @SessionScoped
 
 public class Cart implements Serializable{
 
-    private static Map<Product, Integer> productsAndQuantity = new HashMap();
+    private Map<ProductPE, Integer> productsAndQuantity = new HashMap();
     
-    private static Order order;
-
+    private Order order;
+    
+    private int amount = 1;
+    
+    public static ProductPE currentProductPE = null;
+    
+    
+    
     /*public Product sacar(Product p) {
         int n = products.indexOf(p);
         return (n < 0) ? null : (Product) products.get(n);
@@ -38,7 +48,7 @@ public class Cart implements Serializable{
         return (Product) products.get(c);
 
     }*/
-    public Map<Product, Integer> getProductsAndQuantity() {
+    public Map<ProductPE, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
     }
 
@@ -50,7 +60,7 @@ public class Cart implements Serializable{
         this.order = order;
     }
     
-    public Set<Product> listProducts(){
+    public Set<ProductPE> listProducts(){
         return productsAndQuantity.keySet();
     }
     
@@ -63,8 +73,8 @@ public class Cart implements Serializable{
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
+            for (ProductPE p : productsAndQuantity.keySet()) {
+                if (p.getId() == prodId) {
                     if (productsAndQuantity.get(p) == 1) {
                         productsAndQuantity.remove(p);
                     } else {
@@ -76,13 +86,13 @@ public class Cart implements Serializable{
         }
     }
 
-    public Product removeProductAll(Product prod) {
-        long prodId = prod.getProdId();
+    public ProductPE removeProductAll(ProductPE prod) {
+        long prodId = prod.getId();
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
+            for (ProductPE p : productsAndQuantity.keySet()) {
+                if (p.getId() == prodId) {
                     productsAndQuantity.remove(p);
                 }
             }
@@ -90,20 +100,66 @@ public class Cart implements Serializable{
         }
     }
 
-    public void addProduct(Product prod) {
-        long prodId = prod.getProdId();
+    public void addProduct(ProductPE pPE) {
+        long prodId = pPE.getId();
         if (productsAndQuantity.isEmpty()) {
-            productsAndQuantity.put(prod, 1);
+            productsAndQuantity.put(pPE, amount);
         } else {
-            for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
+            for (ProductPE p : productsAndQuantity.keySet()) {
+                if (p.getId() == prodId) {
                     productsAndQuantity.replace(p, productsAndQuantity.get(p) + 1);
                 } else {
-                    productsAndQuantity.put(prod, 1);
+                    productsAndQuantity.put(pPE, amount);
                 }
             }
         }
 
+    }
+    
+    public ProductPE feedProdDetail() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        String id = request.getParameter("id");
+        long idl;
+        try {
+            idl = Long.parseLong(id);
+        } catch (Exception e) {
+            idl = 0;
+        }
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        Product selectedProduct = em.find(Product.class, idl);
+        //TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class); //We use the namedQuery in employee instaed of yhe controller
+        //List<Product> listProd = query.getResultList();
+
+        //Parse entity Products to ProductPE
+        currentProductPE.setId(selectedProduct.getProdId());
+        currentProductPE.setName(selectedProduct.getProdName());
+        currentProductPE.setDescription(selectedProduct.getProdDescription());
+        currentProductPE.setPrice(selectedProduct.getPrice());
+        currentProductPE.setUpdatedTime(selectedProduct.getUpdatedTime());
+        currentProductPE.setOrderList(selectedProduct.getOrderList());
+
+        em.close();
+        entityManagerFactory.close();
+        
+        return currentProductPE;
+    }
+    
+    public void redirectToProdPage(){
+        
+            try{
+                if(currentProductPE.getId()==2000){
+                    FacesContext.getCurrentInstance().getExternalContext()
+                .redirect("/catalogue/productPage");
+                }
+            
+            }catch(Exception e){
+                
+            }
+        
     }
 
     public void clearCart() {
@@ -113,4 +169,22 @@ public class Cart implements Serializable{
     public int productsCount() {
         return productsAndQuantity.size();
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public static ProductPE getCurrentProductPE() {
+        return currentProductPE;
+    }
+
+    public static void setCurrentProductPE(ProductPE currentProductPE) {
+        Cart.currentProductPE = currentProductPE;
+    }
+    
+    
 }
