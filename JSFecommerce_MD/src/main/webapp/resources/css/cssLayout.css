@@ -1,8 +1,8 @@
 
 #top {
     position: relative;
-    background-color: #a399ab;
-    color: #202010;
+    background-color: #6f81d1;
+    color: #6f81d1;
     padding: 1px;
     margin: 0px 0px 10px 0px;
 }
@@ -58,6 +58,7 @@
   font-weight : bold;
   text-decoration : underline;
 }
+
 h1.title {
   display: table;
   margin: auto;
@@ -67,5 +68,18 @@ h1.title {
   border-color: #9fd1ff;
   padding: 0px 5px;
   letter-spacing: -.05em;
+ text-align: center;
+font-family: 'Poppins', sans-serif;
+font-size: 2em;
+font-weight: 700;
+line-height: 1.7em;
+color:#0f407a;
+text-align: center;
+font-family: 'Poppins', sans-serif;
+font-size: 2em;
+font-weight: 700;
+line-height: 1.7em;
+color:#0f407a;
+border-radius: 6px;
 } 
 
