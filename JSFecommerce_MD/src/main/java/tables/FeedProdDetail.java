@@ -7,15 +7,13 @@ package tables;
 
 import entity.Product;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -23,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author Daniel Gomez
  */
 @Named(value = "feedProdDetail")
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class FeedProdDetail implements Serializable {
 
     ProductPE ProdPE = new ProductPE();
@@ -54,6 +53,14 @@ public class FeedProdDetail implements Serializable {
         em.close();
         entityManagerFactory.close();
 
+    }
+
+    public ProductPE getProdPE() {
+        return ProdPE;
+    }
+
+    public void setProdPE(ProductPE ProdPE) {
+        this.ProdPE = ProdPE;
     }
 
 }
