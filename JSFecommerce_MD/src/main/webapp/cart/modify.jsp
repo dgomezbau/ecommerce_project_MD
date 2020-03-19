@@ -12,10 +12,7 @@
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
 
-<jsp:useBean id="cart" class="beans.Cart" scope="session" />  
-
-
-
+<jsp:useBean id="cart" class="bean.Cart" scope="session" />  
 
 <!-- body content -->
 <div>
@@ -45,7 +42,7 @@
                 <td>  </td>
 
             </tr>
-               <%  Map<Product, Integer> prodMap = cart.getProducts();
+               <%  Map<Product, Integer> prodMap = cart.getProductsAndQuantity();
             Product prod = null;
             double totalPrice = 0;
             for (Product p: prodMap.keySet()) {
@@ -91,4 +88,3 @@
         </div>
     </div>
 </div>
-<%@include file="/etc/foot.jsp" %>

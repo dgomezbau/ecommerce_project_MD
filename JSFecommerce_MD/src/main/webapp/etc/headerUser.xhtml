@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:20%">
+                   <img src="../images/logo.png" height="50"/>
+                </td>
+                <td style="width:60%">
+                    <h1 class="title">E - Toilet Paper</h1></td>
+                <td style="width:20%;text-align:center;border: 3px solid green"><h5>Version 1.0</h5></td>
+            </tr>
+        </table>
+        <hr style="margin-top: 1px"/>
+    </div>
+
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Home" url="./../home/homePageUser.jsf" />
+            <p:menuitem value="Catalog" url="./../catalog/productList.jsf" />
+            <p:menuitem value="Cart" url="./../cart/cartList.jsf" />
+            <p:menuitem value="Invoices" url="./../Invoices/invoicesList.jsf" />
+
+            <f:facet name="options">
+                <p:inputText value="#{searchController.searchString}"
+                             placeholder="Search Text"
+                             style="margin-right:0px"/>
+                <p:commandButton value="Google It" icon="ui-icon-search"
+                                 action="#{searchController.doSearch}"
+                                 ajax="false"/>
+            </f:facet>
+
+        </p:menubar>
+    </h:form>
+</ui:composition>

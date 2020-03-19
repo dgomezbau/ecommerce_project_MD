@@ -10,15 +10,22 @@ import entity.Product;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author Daniel Gomez
- */
-public class Cart {
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-    private Map<Product, Integer> products = new HashMap();
+@Named(value = "cart")
+@SessionScoped
+
+public class Cart implements Serializable{
+
+    private static Map<Product, Integer> productsAndQuantity = new HashMap();
     
-    private Order order;
+    private static Order order;
 
     /*public Product sacar(Product p) {
         int n = products.indexOf(p);
@@ -31,8 +38,8 @@ public class Cart {
         return (Product) products.get(c);
 
     }*/
-    public Map<Product, Integer> getProducts() {
-        return products;
+    public Map<Product, Integer> getProductsAndQuantity() {
+        return productsAndQuantity;
     }
 
     public Order getOrder() {
@@ -42,18 +49,26 @@ public class Cart {
     public void setOrder(Order order) {
         this.order = order;
     }
+    
+    public Set<Product> listProducts(){
+        return productsAndQuantity.keySet();
+    }
+    
+    public Collection<Integer> listQuantity(){
+        return productsAndQuantity.values();
+    }
 
     public Product removeProductOne(Product prod) {
         long prodId = prod.getProdId();
-        if (products.isEmpty()) {
+        if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (Product p : products.keySet()) {
+            for (Product p : productsAndQuantity.keySet()) {
                 if (p.getProdId() == prodId) {
-                    if (products.get(p) == 1) {
-                        products.remove(p);
+                    if (productsAndQuantity.get(p) == 1) {
+                        productsAndQuantity.remove(p);
                     } else {
-                        products.replace(p, products.get(p) - 1);
+                        productsAndQuantity.replace(p, productsAndQuantity.get(p) - 1);
                     }
                 }
             }
@@ -63,12 +78,12 @@ public class Cart {
 
     public Product removeProductAll(Product prod) {
         long prodId = prod.getProdId();
-        if (products.isEmpty()) {
+        if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (Product p : products.keySet()) {
+            for (Product p : productsAndQuantity.keySet()) {
                 if (p.getProdId() == prodId) {
-                    products.remove(p);
+                    productsAndQuantity.remove(p);
                 }
             }
             return prod;
@@ -77,14 +92,14 @@ public class Cart {
 
     public void addProduct(Product prod) {
         long prodId = prod.getProdId();
-        if (products.isEmpty()) {
-            products.put(prod, 1);
+        if (productsAndQuantity.isEmpty()) {
+            productsAndQuantity.put(prod, 1);
         } else {
-            for (Product p : products.keySet()) {
+            for (Product p : productsAndQuantity.keySet()) {
                 if (p.getProdId() == prodId) {
-                    products.replace(p, products.get(p) + 1);
+                    productsAndQuantity.replace(p, productsAndQuantity.get(p) + 1);
                 } else {
-                    products.put(prod, 1);
+                    productsAndQuantity.put(prod, 1);
                 }
             }
         }
@@ -92,10 +107,10 @@ public class Cart {
     }
 
     public void clearCart() {
-        products.clear();
+        productsAndQuantity.clear();
     }
 
     public int productsCount() {
-        return products.size();
+        return productsAndQuantity.size();
     }
 }
