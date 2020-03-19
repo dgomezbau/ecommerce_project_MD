@@ -10,13 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /*
  * PRODUCT Entity - maps to PRODUCT table
  */
-@Entity(name = "PRODUCT") 
+@Entity(name = "PRODUCT")
+@NamedQueries({
+    @NamedQuery(name = "Product.findAll", query = "SELECT e FROM PRODUCT e")})
+
 public class Product {
 	@Id
 	@Column(name = "PROD_ID", nullable = false)
