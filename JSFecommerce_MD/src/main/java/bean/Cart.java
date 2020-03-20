@@ -40,10 +40,6 @@ public class Cart implements Serializable {
 
     private int amount = 1;
 
-    public void retriveCartData() {
-
-    }
-
     public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
     }
@@ -170,15 +166,36 @@ public class Cart implements Serializable {
         ord.setInvoice(invoice);
 
         this.setOrder(ord);
-        
+
         System.err.println(this.getOrder().getCustId());
 
         em.close();
         entityManagerFactory.close();
-        
-         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "../cart/orderDetail.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void pay() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        em.getTransaction().begin();
+        em.persist(order);
+        em.getTransaction().commit();
+
+        em.close();
+        entityManagerFactory.close();
+
+        this.clearCart();
+        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "../home/homePageUser.jsf");
         } catch (IOException ex) {
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }

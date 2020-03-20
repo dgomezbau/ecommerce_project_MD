@@ -36,13 +36,11 @@
 
                 <p:fieldset legend="Actions">
                     <h:form>
-                        <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList"/>
-                        <p:dialog><h:outputText value="Remove" /></p:dialog>
+                        <p:commandButton style="float: left;" value="Discard" ajax="false" action="/catalogue/productList"/>
                     </h:form>
                     
                     <h:form>
-                        <p:commandButton value="Buy" ajax="false" action="/catalogue/productList"/>
-                        <p:dialog><h:outputText value="Rremove" /></p:dialog>
+                        <p:commandButton value="Pay" ajax="false" action="#{cart.pay()}"/>
                     </h:form>
 
                 </p:fieldset>
