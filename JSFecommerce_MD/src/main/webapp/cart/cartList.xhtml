@@ -23,7 +23,6 @@
                         <p:column headerText="Form">
                             <h:form>
                                 <p:commandButton value="Remove" ajax="false" action="#{cart.removeProductAll(Product)}"/>
-                                <p:dialog><h:outputText value="Rremove" /></p:dialog>
                             </h:form>
 
                         </p:column>
@@ -34,12 +33,10 @@
                 <p:fieldset legend="Actions">
                     <h:form>
                         <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList"/>
-                        <p:dialog><h:outputText value="Remove" /></p:dialog>
                     </h:form>
                     
                     <h:form>
-                        <p:commandButton value="Buy" ajax="false" action="/catalogue/productList"/>
-                        <p:dialog><h:outputText value="Rremove" /></p:dialog>
+                        <p:commandButton value="Buy" ajax="false" action="#{cart.generateOrder()}"/>
                     </h:form>
 
                 </p:fieldset>

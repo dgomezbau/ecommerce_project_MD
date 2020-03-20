@@ -152,27 +152,44 @@ public class Cart implements Serializable {
             prod = p;
             totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
         }
-        Order order = new Order();
+        Order ord = new Order();
         Invoice invoice = new Invoice();
 
-        order.setCustId(customer.getCustId());
-        order.setTotPrice(totalPrice);
-        order.setOrderDesc("Test Description");
-        order.setOrderDt(new Date());
-        order.setProductList(prodList);
-        order.setUpdatedTime(new Date());
+        ord.setCustId(customer.getCustId());
+        ord.setTotPrice(totalPrice);
+        ord.setOrderDesc("Test Description");
+        ord.setOrderDt(new Date());
+        ord.setProductList(prodList);
+        ord.setUpdatedTime(new Date());
 
         invoice.setAmountDue(totalPrice);
-        invoice.setOrder(order);
+        invoice.setOrder(ord);
         invoice.setOrderRaisedDt(new Date());
         invoice.setUpdatedTime(new Date());
 
-        order.setInvoice(invoice);
+        ord.setInvoice(invoice);
 
-        this.setOrder(order);
+        this.setOrder(ord);
+        
+        System.err.println(this.getOrder().getCustId());
 
         em.close();
         entityManagerFactory.close();
+        
+         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "../cart/orderDetail.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Customer obtainOrderCustomer() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        long cusID = order.getCustId();
+        Customer customer = em.find(Customer.class, cusID);
+        return customer;
     }
 
     public void clearCart() {
