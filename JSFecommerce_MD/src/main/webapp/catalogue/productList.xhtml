@@ -21,18 +21,12 @@
                         <p:column headerText="Form">
                             <h:form>
                                 <p:spinner min="1" max="100" value="#{cart.amount}"/>
-                                <p:commandButton value="Add to cart" ajax="false" action="#{cart.addProduct(Product)}"/>
-                                <p:dialog><h:outputText value="Product added" /></p:dialog>
+                                <p:commandButton
+                                    value="Add to cart" ajax="false" action="#{cart.addProduct(Product)}">
+                                    <p:dialog><h:outputText value="Product added" /></p:dialog>
+                                </p:commandButton>
                             </h:form>
 
-                        </p:column>
-
-                        <p:column headerText="Link">
-
-
-                            <p:link outcome="/catalogue/productPage" value="Go to product Page">
-                                <f:param name="id" value="#{Product.prodId}" />
-                            </p:link>
                         </p:column>
                     </p:dataTable>
 

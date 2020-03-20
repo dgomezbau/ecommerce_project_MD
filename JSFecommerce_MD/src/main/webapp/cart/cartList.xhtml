@@ -1,22 +1,54 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <p:dataTable var="car" value="">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Product Name" />
-                </f:facet>
-                <h:outputText value="" />
-            </p:column>
-            //more columns
-        </p:dataTable>
-    </h:body>
-</html>
+    <body>
+        <ui:composition template="./../etc/pageTemplateUser.xhtml">
+            <ui:define name="content">
+                <h1 class="ui-widget-header ui-corner-all" align="center">p:dataTable Basics</h1>
+                <br/>
+                <p>Your shopping cart</p>
+                <p:fieldset legend="Cart">
+                    <br/>
+                    <p:dataTable var="Product"
+                                 value="#{cart.listProducts()}"
+                                 >
+                        <p:column headerText="Name"><h:outputText value="#{Product.prodName}" /></p:column>
+                        <p:column headerText="Price"><h:outputText value="#{Product.price}" /></p:column>
+                        <p:column headerText="Amount"><h:outputText value="#{cart.productsAndQuantity.get(Product)}" /></p:column>
 
+                        <p:column headerText="Form">
+                            <h:form>
+                                <p:commandButton value="Remove" ajax="false" action="#{cart.removeProductAll(Product)}"/>
+                                <p:dialog><h:outputText value="Rremove" /></p:dialog>
+                            </h:form>
+
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                </p:fieldset>
+
+                <p:fieldset legend="Actions">
+                    <h:form>
+                        <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList"/>
+                        <p:dialog><h:outputText value="Remove" /></p:dialog>
+                    </h:form>
+                    
+                    <h:form>
+                        <p:commandButton value="Buy" ajax="false" action="/catalogue/productList"/>
+                        <p:dialog><h:outputText value="Rremove" /></p:dialog>
+                    </h:form>
+
+                </p:fieldset>
+
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

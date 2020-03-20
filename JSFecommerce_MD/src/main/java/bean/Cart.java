@@ -29,29 +29,18 @@ import peentity.ProductPE;
 @Named(value = "cart")
 @SessionScoped
 
-public class Cart implements Serializable{
+public class Cart implements Serializable {
 
     private Map<Product, Integer> productsAndQuantity = new HashMap();
-    
+
     private Order order;
-    
+
     private int amount = 1;
-    
-    public static ProductPE currentProductPE = null;
-    
-    
-    
-    /*public Product sacar(Product p) {
-        int n = products.indexOf(p);
-        return (n < 0) ? null : (Product) products.get(n);
+
+    public void retriveCartData() {
+
     }
 
-    public Product sacar(int c) {
-        Product p = new Product();
-        p.setProdId(c);
-        return (Product) products.get(c);
-
-    }*/
     public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
     }
@@ -63,12 +52,12 @@ public class Cart implements Serializable{
     public void setOrder(Order order) {
         this.order = order;
     }
-    
-    public Set<Product> listProducts(){
+
+    public Set<Product> listProducts() {
         return productsAndQuantity.keySet();
     }
-    
-    public Collection<Integer> listQuantity(){
+
+    public Collection<Integer> listQuantity() {
         return productsAndQuantity.values();
     }
 
@@ -90,8 +79,8 @@ public class Cart implements Serializable{
         }
     }
 
-    public ProductPE removeProductAll(ProductPE prod) {
-        long prodId = prod.getId();
+    public Product removeProductAll(Product prod) {
+        long prodId = prod.getProdId();
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
@@ -100,8 +89,16 @@ public class Cart implements Serializable{
                     productsAndQuantity.remove(p);
                 }
             }
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return prod;
+
         }
+
     }
 
     public void addProduct(Product prod) {
@@ -111,13 +108,14 @@ public class Cart implements Serializable{
         } else {
             for (Product p : productsAndQuantity.keySet()) {
                 if (p.getProdId() == prodId) {
-                    productsAndQuantity.replace(p, productsAndQuantity.get(p) + 1);
+                    productsAndQuantity.replace(p, productsAndQuantity.get(p) + amount);
                 } else {
                     productsAndQuantity.put(prod, amount);
                 }
             }
         }
-        System.err.println("Cantidad="+this.amount+" prod id ="+ prod.getProdId());
+        this.amount=1;
+        System.err.println("Cantidad=" + this.amount + " prod id =" + prod.getProdId());
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
@@ -125,38 +123,6 @@ public class Cart implements Serializable{
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-    
-    public ProductPE feedProdDetail() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
-        String id = request.getParameter("id");
-        long idl;
-        try {
-            idl = Long.parseLong(id);
-        } catch (Exception e) {
-            idl = 0;
-        }
-
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
-        EntityManager em = entityManagerFactory.createEntityManager();
-
-        Product selectedProduct = em.find(Product.class, idl);
-        //TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class); //We use the namedQuery in employee instaed of yhe controller
-        //List<Product> listProd = query.getResultList();
-
-        //Parse entity Products to ProductPE
-        currentProductPE.setId(selectedProduct.getProdId());
-        currentProductPE.setName(selectedProduct.getProdName());
-        currentProductPE.setDescription(selectedProduct.getProdDescription());
-        currentProductPE.setPrice(selectedProduct.getPrice());
-        currentProductPE.setUpdatedTime(selectedProduct.getUpdatedTime());
-        currentProductPE.setOrderList(selectedProduct.getOrderList());
-
-        em.close();
-        entityManagerFactory.close();
-        
-        return currentProductPE;
     }
 
     public void clearCart() {
@@ -175,13 +141,4 @@ public class Cart implements Serializable{
         this.amount = amount;
     }
 
-    public static ProductPE getCurrentProductPE() {
-        return currentProductPE;
-    }
-
-    public static void setCurrentProductPE(ProductPE currentProductPE) {
-        Cart.currentProductPE = currentProductPE;
-    }
-    
-    
 }
