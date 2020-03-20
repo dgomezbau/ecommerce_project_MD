@@ -20,18 +20,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.servlet.http.HttpServletRequest;
-import peentity.ProductPE;
 
 @Named(value = "cart")
 @SessionScoped
 
 public class Cart implements Serializable {
 
-    private Map<Product, Integer> productsAndQuantity = new HashMap();
+    private static Map<Product, Integer> productsAndQuantity = new HashMap();
 
     private Order order;
 
@@ -122,7 +117,10 @@ public class Cart implements Serializable {
         } catch (IOException ex) {
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
+    
+    public void generateOrder(){
+        
     }
 
     public void clearCart() {
