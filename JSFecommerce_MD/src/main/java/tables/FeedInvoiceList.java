@@ -5,49 +5,46 @@
  */
 package tables;
 
-import peentity.ProductPE;
+import entity.Invoice;
 import entity.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author Daniel Gomez
  */
-@Named(value = "feedProdList")
+@Named(value = "feedInvoiceList")
 @SessionScoped
-public class FeedProdList implements Serializable {
+public class FeedInvoiceList implements Serializable{
 
-    private List<Product> listProd = new ArrayList<>();
+private List<Invoice> listInv = new ArrayList<>();
 
-    public FeedProdList() {
-
+    public FeedInvoiceList() {
+        
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class); //We use the namedQuery in employee instaed of yhe controller
-        this.listProd = query.getResultList();
+        TypedQuery<Invoice> query = em.createNamedQuery("Invoice.findAll", Invoice.class);
+        this.listInv = query.getResultList();
 
         em.close();
         entityManagerFactory.close();
-
     }
 
-    public List<Product> getListProd() {
-        return listProd;
+    public List<Invoice> getListInv() {
+        return listInv;
     }
 
-    public void setListProd(List<Product> Prod) {
-        this.listProd = Prod;
+    public void setListInv(List<Invoice> listInv) {
+        this.listInv = listInv;
     }
-
+    
 }

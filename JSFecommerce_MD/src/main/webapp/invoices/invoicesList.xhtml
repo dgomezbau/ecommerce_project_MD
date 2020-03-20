@@ -1,12 +1,37 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../etc/pageTemplateUser.xhtml">
+            <ui:define name="content">
+                <br/>
+                <p>Product in the Catalogue</p>
+                <p:fieldset legend="Products">
+                    <br/>
+                    <p:dataTable var="Invoice"
+                                 value="#{feedInvoiceList.listInv}">
+                        <p:column headerText="ID">#{Invoice.invoiceId}</p:column>
+                        <p:column headerText="Price">#{Invoice.amountDue}</p:column>
+                        <p:column headerText="Date">#{Invoice.orderRaisedDt}</p:column>
+                        <p:column headerText="PDF">
+                            <h:form>
+                                <p:commandButton
+                                    value="PDF" ajax="false" action="#{cart.addProduct(Product)}">
+                                </p:commandButton>
+                            </h:form>
 
+                        </p:column>
+                    </p:dataTable>
+
+                    <br/>
+                </p:fieldset>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -34,7 +34,7 @@ import javax.persistence.Persistence;
 
 public class Cart implements Serializable {
 
-    private static Map<Product, Integer> productsAndQuantity = new HashMap();
+    private Map<Product, Integer> productsAndQuantity = new HashMap();
 
     private Order order;
 
