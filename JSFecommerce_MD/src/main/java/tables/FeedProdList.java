@@ -28,7 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 public class FeedProdList implements Serializable{
     
     int counter = 0;
-    List<ProductPE> listProdPE = new ArrayList<>();
+    private List<ProductPE> listProdPE = new ArrayList<>();
+    private List<Product> listProd = new ArrayList<>();
+    
     
     public FeedProdList() {
         
@@ -36,8 +38,7 @@ public class FeedProdList implements Serializable{
     EntityManager em = entityManagerFactory.createEntityManager();
     
     TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class); //We use the namedQuery in employee instaed of yhe controller
-    List<Product> listProd = query.getResultList();
-    
+    this.listProd = query.getResultList();
     //Parse entity Products to ProductPE
     for(Product p: listProd){
         ProductPE pPE = new ProductPE();
@@ -82,6 +83,14 @@ public class FeedProdList implements Serializable{
 
     public void setCounter(int counter) {
         this.counter = counter;
+    }
+
+    public List<Product> getListProd() {
+        return listProd;
+    }
+
+    public void setListProd(List<Product> Prod) {
+        this.listProd = Prod;
     }
     
 }

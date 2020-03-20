@@ -7,6 +7,7 @@ package bean;
 
 import entity.Order;
 import entity.Product;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,9 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +31,7 @@ import peentity.ProductPE;
 
 public class Cart implements Serializable{
 
-    private Map<ProductPE, Integer> productsAndQuantity = new HashMap();
+    private Map<Product, Integer> productsAndQuantity = new HashMap();
     
     private Order order;
     
@@ -48,7 +52,7 @@ public class Cart implements Serializable{
         return (Product) products.get(c);
 
     }*/
-    public Map<ProductPE, Integer> getProductsAndQuantity() {
+    public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
     }
 
@@ -60,7 +64,7 @@ public class Cart implements Serializable{
         this.order = order;
     }
     
-    public Set<ProductPE> listProducts(){
+    public Set<Product> listProducts(){
         return productsAndQuantity.keySet();
     }
     
@@ -73,8 +77,8 @@ public class Cart implements Serializable{
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (ProductPE p : productsAndQuantity.keySet()) {
-                if (p.getId() == prodId) {
+            for (Product p : productsAndQuantity.keySet()) {
+                if (p.getProdId() == prodId) {
                     if (productsAndQuantity.get(p) == 1) {
                         productsAndQuantity.remove(p);
                     } else {
@@ -91,8 +95,8 @@ public class Cart implements Serializable{
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
-            for (ProductPE p : productsAndQuantity.keySet()) {
-                if (p.getId() == prodId) {
+            for (Product p : productsAndQuantity.keySet()) {
+                if (p.getProdId() == prodId) {
                     productsAndQuantity.remove(p);
                 }
             }
@@ -100,18 +104,25 @@ public class Cart implements Serializable{
         }
     }
 
-    public void addProduct(ProductPE pPE) {
-        long prodId = pPE.getId();
+    public void addProduct(Product prod) {
+        long prodId = prod.getProdId();
         if (productsAndQuantity.isEmpty()) {
-            productsAndQuantity.put(pPE, amount);
+            productsAndQuantity.put(prod, amount);
         } else {
-            for (ProductPE p : productsAndQuantity.keySet()) {
-                if (p.getId() == prodId) {
+            for (Product p : productsAndQuantity.keySet()) {
+                if (p.getProdId() == prodId) {
                     productsAndQuantity.replace(p, productsAndQuantity.get(p) + 1);
                 } else {
-                    productsAndQuantity.put(pPE, amount);
+                    productsAndQuantity.put(prod, amount);
                 }
             }
+        }
+        System.err.println("Cantidad="+this.amount+" prod id ="+ prod.getProdId());
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -146,20 +157,6 @@ public class Cart implements Serializable{
         entityManagerFactory.close();
         
         return currentProductPE;
-    }
-    
-    public void redirectToProdPage(){
-        
-            try{
-                if(currentProductPE.getId()==2000){
-                    FacesContext.getCurrentInstance().getExternalContext()
-                .redirect("/catalogue/productPage");
-                }
-            
-            }catch(Exception e){
-                
-            }
-        
     }
 
     public void clearCart() {
