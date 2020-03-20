@@ -23,8 +23,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -39,6 +41,9 @@ public class Cart implements Serializable {
     private Order order;
 
     private int amount = 1;
+    
+    @Inject
+    private Control ctrl;
 
     public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
@@ -133,12 +138,11 @@ public class Cart implements Serializable {
     }
 
     public void generateOrder() {
-        //ctrl.setIdUser(100);
-        //long cusID = ctrl.getIdUser();
+        
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        Customer customer = em.find(Customer.class, 110L);
+        Customer customer = em.find(Customer.class, ctrl.getIdUser());
 
         List<Product> prodList = new ArrayList();
         Product prod = null;
@@ -166,8 +170,6 @@ public class Cart implements Serializable {
         ord.setInvoice(invoice);
 
         this.setOrder(ord);
-
-        System.err.println(this.getOrder().getCustId());
 
         em.close();
         entityManagerFactory.close();
@@ -223,6 +225,14 @@ public class Cart implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public Control getCtrl() {
+        return ctrl;
+    }
+
+    public void setCtrl(Control ctrl) {
+        this.ctrl = ctrl;
     }
 
 }

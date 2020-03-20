@@ -67,6 +67,22 @@ public class Control implements Serializable {
         this.pass = pass;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Customer getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Customer custom) {
+        this.custom = custom;
+    }
+
     private void obtainCustomerFromDB() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
