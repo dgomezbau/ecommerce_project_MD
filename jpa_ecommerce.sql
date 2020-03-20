@@ -27,14 +27,15 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `ZIP_CODE` varchar(10) NOT NULL,
   `EMAIL` varchar(30) NOT NULL,
   `LAST_UPDATED_TIME` datetime DEFAULT NULL,
+  `PASS` varchar(50) NOT NULL,
   PRIMARY KEY (`CUST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table jpa_ecommerce.customer: ~2 rows (approximately)
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-REPLACE INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `STREET`, `APPT`, `CITY`, `ZIP_CODE`, `EMAIL`, `LAST_UPDATED_TIME`) VALUES
-	(100, 'Jupiter', 'Jone', '10 Downing Street', '123', 'London', '12345', 'j@nobody.com', '2020-02-29 08:59:07'),
-	(110, 'Mike', 'Peterson', '20 Downing Street', '456', 'New York', '12345', 'm@nobody.com', '2020-02-29 08:59:07');
+REPLACE INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `STREET`, `APPT`, `CITY`, `ZIP_CODE`, `EMAIL`, `LAST_UPDATED_TIME`, `PASS`) VALUES
+	(100, 'Daniel', 'Gómez', 'Calle Mayor 3', '2A', 'Calatorao', '50026', 'daniel.gomez@movicoders.com', '2020-02-29 08:59:07', '1234'),
+	(110, 'Mihai', 'Aurar', 'Plaza Cataluña 1', '1D', 'Huesca', '22084', 'mihai.aurar@movicoders.com', '2020-02-29 08:59:07', '1234');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.orders
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `ORDER_FK` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`CUST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.orders: ~4 rows (approximately)
+-- Dumping data for table jpa_ecommerce.orders: ~12 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 REPLACE INTO `orders` (`ORDER_ID`, `CUST_ID`, `TOTAL_PRICE`, `OREDER_DESC`, `ORDER_DATE`, `LAST_UPDATED_TIME`) VALUES
 	(111, 100, 100, 'Internet and phone', '2020-02-29 08:59:07', '2020-02-29 08:59:07'),
@@ -63,7 +64,9 @@ REPLACE INTO `orders` (`ORDER_ID`, `CUST_ID`, `TOTAL_PRICE`, `OREDER_DESC`, `ORD
 	(701, 100, 400, 'Test Description', '2020-03-12 18:34:08', '2020-03-12 18:34:08'),
 	(751, 100, 50, 'Test Description', '2020-03-12 18:36:14', '2020-03-12 18:36:14'),
 	(801, 100, 50, 'Test Description', '2020-03-12 18:36:45', '2020-03-12 18:36:45'),
-	(851, 100, 50, 'Test Description', '2020-03-12 18:37:23', '2020-03-12 18:37:23');
+	(851, 100, 50, 'Test Description', '2020-03-12 18:37:23', '2020-03-12 18:37:23'),
+	(901, 110, 240, 'Test Description', '2020-03-20 18:32:06', '2020-03-20 18:32:06'),
+	(951, 110, 240, 'Test Description', '2020-03-20 21:42:15', '2020-03-20 21:42:15');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.order_detail
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   CONSTRAINT `PROD_ID_FK` FOREIGN KEY (`PROD_ID`) REFERENCES `product` (`PROD_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.order_detail: ~7 rows (approximately)
+-- Dumping data for table jpa_ecommerce.order_detail: ~14 rows (approximately)
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
 REPLACE INTO `order_detail` (`ORDER_ID`, `PROD_ID`, `PRICE`, `LAST_UPDATED_TIME`) VALUES
 	(111, 2020, 40, '2020-02-29 08:59:07'),
@@ -93,7 +96,9 @@ REPLACE INTO `order_detail` (`ORDER_ID`, `PROD_ID`, `PRICE`, `LAST_UPDATED_TIME`
 	(701, 2030, 400, NULL),
 	(751, 2030, 50, NULL),
 	(801, 2030, 50, NULL),
-	(851, 2030, 50, NULL);
+	(851, 2030, 50, NULL),
+	(901, 2000, 60, NULL),
+	(951, 2020, 40, NULL);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.order_invoice
@@ -110,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `order_invoice` (
   CONSTRAINT `ORDER_INVOICE_FK` FOREIGN KEY (`ORDER_ID`) REFERENCES `orders` (`ORDER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.order_invoice: ~5 rows (approximately)
+-- Dumping data for table jpa_ecommerce.order_invoice: ~12 rows (approximately)
 /*!40000 ALTER TABLE `order_invoice` DISABLE KEYS */;
 REPLACE INTO `order_invoice` (`INVOICE_ID`, `ORDER_ID`, `DATE_RAISED`, `AMOUNT_DUE`, `DATE_SETTLED`, `DATE_CANCELLED`, `LAST_UPDATED_TIME`) VALUES
 	(1, 111, '2020-02-29 08:59:07', 100, '2020-02-29 08:59:07', NULL, '2020-02-29 08:59:07'),
@@ -123,7 +128,9 @@ REPLACE INTO `order_invoice` (`INVOICE_ID`, `ORDER_ID`, `DATE_RAISED`, `AMOUNT_D
 	(702, 701, '2020-03-12 18:34:08', 400, NULL, NULL, '2020-03-12 18:34:08'),
 	(752, 751, '2020-03-12 18:36:14', 50, NULL, NULL, '2020-03-12 18:36:14'),
 	(802, 801, '2020-03-12 18:36:45', 50, NULL, NULL, '2020-03-12 18:36:45'),
-	(852, 851, '2020-03-12 18:37:23', 50, NULL, NULL, '2020-03-12 18:37:23');
+	(852, 851, '2020-03-12 18:37:23', 50, NULL, NULL, '2020-03-12 18:37:23'),
+	(902, 901, '2020-03-20 18:32:06', 240, NULL, NULL, '2020-03-20 18:32:06'),
+	(952, 951, '2020-03-20 21:42:15', 240, NULL, NULL, '2020-03-20 21:42:15');
 /*!40000 ALTER TABLE `order_invoice` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.product
@@ -139,11 +146,11 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table jpa_ecommerce.product: ~5 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 REPLACE INTO `product` (`PROD_ID`, `PROD_NAME`, `PROD_DESC`, `REGULAR_PRICE`, `LAST_UPDATED_TIME`) VALUES
-	(2000, 'A', 'Product A', 60, '2020-02-29 08:59:07'),
-	(2010, 'B', 'Product B', 30, '2020-02-29 08:59:07'),
-	(2020, 'C', 'Product C', 40, '2020-02-29 08:59:07'),
-	(2030, 'D', 'Product D', 50, '2020-02-29 08:59:07'),
-	(2040, 'E', 'Product E', 70, '2020-02-29 08:59:07');
+	(2000, 'Charmin', 'Charmin Ultra Strong Mega Plus 8', 8, '2020-02-29 08:59:07'),
+	(2010, 'Donal Trum Toilet Paper', 'Extra Republican Toilet Paper', 50, '2020-02-29 08:59:07'),
+	(2020, 'Scottex', 'Scottex Original', 7, '2020-02-29 08:59:07'),
+	(2030, 'Colhogar', 'Colhogar 8 double', 9, '2020-02-29 08:59:07'),
+	(2040, 'Recicled generic toilet paper', 'Tough guys\'s toilet paper', 12, '2020-02-29 08:59:07');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.sequence
@@ -156,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `sequence` (
 -- Dumping data for table jpa_ecommerce.sequence: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sequence` DISABLE KEYS */;
 REPLACE INTO `sequence` (`SEQ_NAME`, `SEQ_COUNT`) VALUES
-	('SEQ_GEN', 900);
+	('SEQ_GEN', 1000);
 /*!40000 ALTER TABLE `sequence` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
