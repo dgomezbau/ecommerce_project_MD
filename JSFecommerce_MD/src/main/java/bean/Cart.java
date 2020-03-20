@@ -5,6 +5,8 @@
  */
 package bean;
 
+import entity.Customer;
+import entity.Invoice;
 import entity.Order;
 import entity.Product;
 import java.io.IOException;
@@ -14,12 +16,18 @@ import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 @Named(value = "cart")
 @SessionScoped
@@ -93,7 +101,6 @@ public class Cart implements Serializable {
             return prod;
 
         }
-
     }
 
     public void addProduct(Product prod) {
@@ -109,7 +116,7 @@ public class Cart implements Serializable {
                 }
             }
         }
-        this.amount=1;
+        this.amount = 1;
         System.err.println("Cantidad=" + this.amount + " prod id =" + prod.getProdId());
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -118,9 +125,54 @@ public class Cart implements Serializable {
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void generateOrder(){
-        
+
+    public double calculateTotalPrice() {
+        double totalPrice = 0;
+        Product prod = null;
+        for (Product p : productsAndQuantity.keySet()) {
+            prod = p;
+            totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
+        }
+        return totalPrice;
+    }
+
+    public void generateOrder() {
+        //ctrl.setIdUser(100);
+        //long cusID = ctrl.getIdUser();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        Customer customer = em.find(Customer.class, 110L);
+
+        List<Product> prodList = new ArrayList();
+        Product prod = null;
+        double totalPrice = 0;
+        for (Product p : productsAndQuantity.keySet()) {
+            prodList.add(p);
+            prod = p;
+            totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
+        }
+        Order order = new Order();
+        Invoice invoice = new Invoice();
+
+        order.setCustId(customer.getCustId());
+        order.setTotPrice(totalPrice);
+        order.setOrderDesc("Test Description");
+        order.setOrderDt(new Date());
+        order.setProductList(prodList);
+        order.setUpdatedTime(new Date());
+
+        invoice.setAmountDue(totalPrice);
+        invoice.setOrder(order);
+        invoice.setOrderRaisedDt(new Date());
+        invoice.setUpdatedTime(new Date());
+
+        order.setInvoice(invoice);
+
+        this.setOrder(order);
+
+        em.close();
+        entityManagerFactory.close();
     }
 
     public void clearCart() {
