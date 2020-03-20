@@ -94,13 +94,11 @@ public class Control implements Serializable {
 
         if (custom == null) {
             System.err.println("No hay User");
-            redirect("/errors/loginError.jsf");
-            
-
+            redirect("../errors/loginError.jsf");
         } else {
-            if (custom.getPass().equals(pass)) {
+            if (!custom.getPass().equals(pass)) {
                 System.err.println("Password incorrecto");
-                redirect("/errors/loginError.jsf");
+                redirect("../errors/loginError.jsf");
             } else {
                 System.err.println("LOGIN");
                 //Check for level not implemented
@@ -109,9 +107,8 @@ public class Control implements Serializable {
                 name = custom.getFirstName()+" "+ custom.getLastName();
                 
                 
-                redirect("/errors/loginError.jsf");
+                redirect("../home/homePageUser.jsf");
             }
-
         }
     }
 }
