@@ -5,73 +5,113 @@
  */
 package bean;
 
-/**
- *
- * @author Daniel Gomez
- */
-public class Control {
+import entity.Customer;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+@Named(value = "control")
+@SessionScoped
+
+public class Control implements Serializable {
 
     public Control() {
-    }
-    
-    private String nameUser;
 
-    /**
-     * Get the value of nameUser
-     *
-     * @return the value of nameUser
-     */
-    public String getNameUser() {
-        return nameUser;
     }
 
-    /**
-     * Set the value of nameUser
-     *
-     * @param nameUser new value of nameUser
-     */
-    public void setNameUser(String nameUser) {
-        this.nameUser = nameUser;
+    private String userName;
+    private String name;
+    private long idUser;
+    private String pass;
+    private int level;
+    private Customer custom = null;
+
+    public String getUserName() {
+        return userName;
     }
 
-    private int idUser;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-    /**
-     * Get the value of idUser
-     *
-     * @return the value of idUser
-     */
-    public int getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
-    /**
-     * Set the value of idUser
-     *
-     * @param idUser new value of idUser
-     */
-    public void setIdUser(int idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 
-    private int level;
-
-    /**
-     * Get the value of level
-     *
-     * @return the value of level
-     */
     public int getLevel() {
         return level;
     }
 
-    /**
-     * Set the value of level
-     *
-     * @param level new value of level
-     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    private void obtainCustomerFromDB() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        TypedQuery<Customer> query = em.createNamedQuery("Customer.findbyemail", Customer.class);
+        query.setParameter("email", userName);
+        this.custom = query.getSingleResult();
+
+        em.close();
+        entityManagerFactory.close();
+    }
+
+    private void redirect(String page) {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + page);
+        } catch (IOException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void login() {
+
+        obtainCustomerFromDB();
+
+        if (custom == null) {
+            System.err.println("No hay User");
+            redirect("/errors/loginError.jsf");
+            
+
+        } else {
+            if (custom.getPass().equals(pass)) {
+                System.err.println("Password incorrecto");
+                redirect("/errors/loginError.jsf");
+            } else {
+                System.err.println("LOGIN");
+                //Check for level not implemented
+                
+                idUser = custom.getCustId();
+                name = custom.getFirstName()+" "+ custom.getLastName();
+                
+                
+                redirect("/errors/loginError.jsf");
+            }
+
+        }
+    }
 }

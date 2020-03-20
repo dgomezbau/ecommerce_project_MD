@@ -5,19 +5,16 @@
  */
 package tables;
 
-import peentity.ProductPE;
 import entity.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -34,7 +31,7 @@ public class FeedProdList implements Serializable {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class); //We use the namedQuery in employee instaed of yhe controller
+        TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
         this.listProd = query.getResultList();
 
         em.close();

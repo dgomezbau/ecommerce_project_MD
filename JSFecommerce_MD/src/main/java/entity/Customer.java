@@ -10,6 +10,9 @@ import java.util.Date;
  * Customer Entity - maps to CUSTOMER table
  */
 @Entity(name = "CUSTOMER")
+
+@NamedQueries({
+    @NamedQuery(name = "Customer.findbyemail", query = "SELECT e FROM CUSTOMER e WHERE e.email = :email")})
 public class Customer implements Serializable {
 
     @Id //signifies the primary key
@@ -37,6 +40,9 @@ public class Customer implements Serializable {
 
     @Column(name = "EMAIL", nullable = false)
     private String email;
+    
+    @Column(name = "PASS", nullable = false)
+    private String pass;
 
       
     //@Version
@@ -141,6 +147,14 @@ public class Customer implements Serializable {
 
     public void setOrders(Collection<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
 }
