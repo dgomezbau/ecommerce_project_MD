@@ -10,8 +10,8 @@
         <ui:composition template="./../etc/pageTemplateUser.xhtml">
             <ui:define name="content">
                 <br/>
-                <p>Your shopping cart</p>
-                <p:fieldset legend="Cart">
+                <p>Your order</p>
+                <p:fieldset legend="Personal Data">
                     <br/>
                     <p:dataTable var="Customer"
                                  value="#{cart.obtainOrderCustomer()}">
@@ -20,8 +20,7 @@
                     </p:dataTable>
                     <br/>
                     
-                    <p>Products</p>
-                    <p:dataTable var="Product"
+                    <p:dataTable var="Products"
                                  value="#{cart.listProducts()}"
                                  >
                         <p:column headerText="Name"><h:outputText value="#{Product.prodName}" /></p:column>
@@ -30,7 +29,7 @@
 
                     </p:dataTable>
                     
-                    <h2>Total: #{cart.calculateTotalPrice()} </h2>>
+                    <h2>Total: #{cart.calculateTotalPrice()} </h2>
                     <br/>
                 </p:fieldset>
 
