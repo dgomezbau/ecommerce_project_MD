@@ -100,7 +100,7 @@ public class Control implements Serializable {
         try {
             ec.redirect(ec.getRequestContextPath() + page);
         } catch (IOException ex) {
-            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -109,14 +109,12 @@ public class Control implements Serializable {
         obtainCustomerFromDB();
 
         if (custom == null) {
-            System.err.println("No hay User");
             redirect("../errors/loginError.jsf");
         } else {
             if (!custom.getPass().equals(pass)) {
-                System.err.println("Password incorrecto");
                 redirect("../errors/loginError.jsf");
             } else {
-                System.err.println("LOGIN");
+                
                 //Check for level not implemented
                 
                 idUser = custom.getCustId();

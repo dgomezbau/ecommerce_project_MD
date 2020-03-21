@@ -8,7 +8,9 @@ package tables;
 import entity.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
@@ -25,6 +27,8 @@ import javax.persistence.TypedQuery;
 public class FeedProdList implements Serializable {
 
     private List<Product> listProd = new ArrayList<>();
+    
+    private Map<Product,Integer> listProdAmount = new HashMap<>();
 
     public FeedProdList() {
 
@@ -33,6 +37,11 @@ public class FeedProdList implements Serializable {
 
         TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
         this.listProd = query.getResultList();
+        for(Product prod: listProd){
+            listProdAmount.put(prod, 0);
+        }
+        
+        
 
         em.close();
         entityManagerFactory.close();

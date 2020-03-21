@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tables;
-
-import entity.Product;
+package Util;
 
 /**
  *
  * @author Daniel Gomez
  */
-public class Pairs {
+public class Redirect {
     
-    Product prod;
-    int amount;
 }

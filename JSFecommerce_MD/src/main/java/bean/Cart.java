@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -41,12 +40,21 @@ public class Cart implements Serializable {
     private Order order;
 
     private int amount = 1;
+    private long currProdId = -1;
     
     @Inject
     private Control ctrl;
 
     public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
+    }
+
+    public long getCurrProdId() {
+        return currProdId;
+    }
+
+    public void setCurrProdId(long currProdId) {
+        this.currProdId = currProdId;
     }
 
     public Order getOrder() {
@@ -118,7 +126,7 @@ public class Cart implements Serializable {
             }
         }
         this.amount = 1;
-        System.err.println("Cantidad=" + this.amount + " prod id =" + prod.getProdId());
+        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
