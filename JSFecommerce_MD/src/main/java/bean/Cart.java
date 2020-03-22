@@ -73,42 +73,25 @@ public class Cart implements Serializable {
         return productsAndQuantity.values();
     }
 
-    public Product removeProductOne(Product prod) {
-        long prodId = prod.getProdId();
-        if (productsAndQuantity.isEmpty()) {
-            return null;
-        } else {
-            for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
-                    if (productsAndQuantity.get(p) == 1) {
-                        productsAndQuantity.remove(p);
-                    } else {
-                        productsAndQuantity.replace(p, productsAndQuantity.get(p) - 1);
-                    }
-                }
-            }
-            return prod;
-        }
+    public void replaceProduct(Product prod) {
+
+        productsAndQuantity.replace(prod, amount);
+
     }
 
     public Product removeProductAll(Product prod) {
-        long prodId = prod.getProdId();
+        Product pcoin = null;
+
         if (productsAndQuantity.isEmpty()) {
             return null;
         } else {
             for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
+                if (p.equals(prod)) {
                     productsAndQuantity.remove(p);
                 }
             }
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            try {
-                ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
-            } catch (IOException ex) {
-                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            redirect("../cart/cartList.jsf");
             return prod;
-
         }
     }
 
@@ -132,7 +115,6 @@ public class Cart implements Serializable {
         }
 
         this.amount = 1;
-        System.err.println(productsAndQuantity.toString());
     }
 
     public double calculateTotalPrice() {
@@ -160,6 +142,8 @@ public class Cart implements Serializable {
             prod = p;
             totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
         }
+        
+        
         Order ord = new Order();
         Invoice invoice = new Invoice();
 
@@ -169,6 +153,7 @@ public class Cart implements Serializable {
         ord.setOrderDt(new Date());
         ord.setProductList(prodList);
         ord.setUpdatedTime(new Date());
+        ord.setOrderDesc("Your adquisition on e-Toiler Paper on " + new Date());
 
         invoice.setAmountDue(totalPrice);
         invoice.setOrder(ord);
@@ -182,12 +167,7 @@ public class Cart implements Serializable {
         em.close();
         entityManagerFactory.close();
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath() + "../cart/orderDetail.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        redirect("../cart/orderDetail.jsf");
     }
 
     public void pay() {
@@ -203,12 +183,7 @@ public class Cart implements Serializable {
 
         this.clearCart();
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath() + "../home/homePageUser.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        redirect("../home/homePageUser.jsf");
     }
 
     public Customer obtainOrderCustomer() {
@@ -221,6 +196,7 @@ public class Cart implements Serializable {
 
     public void clearCart() {
         productsAndQuantity.clear();
+        redirect("cartList.jsf");
     }
 
     public int productsCount() {
@@ -243,4 +219,12 @@ public class Cart implements Serializable {
         this.ctrl = ctrl;
     }
 
+    private void redirect(String path) {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + path);
+        } catch (IOException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

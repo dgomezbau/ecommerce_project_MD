@@ -69,7 +69,7 @@ public class Order implements Serializable {
     )
     
     private List<Product> productList;
-
+    
     //@Version
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_UPDATED_TIME")

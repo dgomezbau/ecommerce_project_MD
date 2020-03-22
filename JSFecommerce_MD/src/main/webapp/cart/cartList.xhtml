@@ -9,16 +9,15 @@
     <body>
         <ui:composition template="./../etc/pageTemplateUser.xhtml">
             <ui:define name="content">
-                <br/>
-                <p>Your shopping cart</p>
+                
                 <p:fieldset legend="Cart">
                     <br/>
                     <p:dataTable var="Product"
                                  value="#{cart.listProducts()}"
                                  >
-                        <p:column headerText="Name"><h:outputText value="#{Product.prodName}" /></p:column>
-                        <p:column headerText="Price"><h:outputText value="#{Product.price}" /></p:column>
-                        <p:column headerText="Amount"><h:outputText value="#{cart.productsAndQuantity.get(Product)}" /></p:column>
+                        <p:column headerText="Name">#{Product.prodName}</p:column>
+                        <p:column headerText="Price">#{Product.price}</p:column>
+                        <p:column headerText="Amount">#{cart.productsAndQuantity.get(Product)}</p:column>
 
                         <p:column headerText="Form">
                             <h:form>
@@ -32,7 +31,11 @@
 
                 <p:fieldset legend="Actions">
                     <h:form>
-                        <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList"/>
+                        <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList_v2"/>
+                    </h:form>
+                    
+                    <h:form>
+                        <p:commandButton style="float: left;" value="Clear Cart" ajax="false" action="#{cart.clearCart()}"/>
                     </h:form>
                     
                     <h:form>
