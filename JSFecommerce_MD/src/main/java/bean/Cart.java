@@ -40,7 +40,7 @@ public class Cart implements Serializable {
     private Order order;
 
     private int amount = 1;
-    private long currProdId = -1;
+    private Product currProd = null;
     
     @Inject
     private Control ctrl;
@@ -49,13 +49,15 @@ public class Cart implements Serializable {
         return productsAndQuantity;
     }
 
-    public long getCurrProdId() {
-        return currProdId;
+    public Product getCurrProd() {
+        return currProd;
     }
 
-    public void setCurrProdId(long currProdId) {
-        this.currProdId = currProdId;
+    public void setCurrProd(Product currProd) {
+        this.currProd = currProd;
     }
+
+   
 
     public Order getOrder() {
         return order;
@@ -127,12 +129,12 @@ public class Cart implements Serializable {
         }
         this.amount = 1;
         
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        /*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
         } catch (IOException ex) {
             Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     public double calculateTotalPrice() {
