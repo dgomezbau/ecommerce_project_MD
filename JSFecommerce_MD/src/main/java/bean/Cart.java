@@ -41,7 +41,7 @@ public class Cart implements Serializable {
 
     private int amount = 1;
     private Product currProd = null;
-    
+
     @Inject
     private Control ctrl;
 
@@ -56,8 +56,6 @@ public class Cart implements Serializable {
     public void setCurrProd(Product currProd) {
         this.currProd = currProd;
     }
-
-   
 
     public Order getOrder() {
         return order;
@@ -115,27 +113,26 @@ public class Cart implements Serializable {
     }
 
     public void addProduct(Product prod) {
-        this.amount = 1;
-        long prodId = prod.getProdId();
+
+        Product pcoin = null;
+
         if (productsAndQuantity.isEmpty()) {
             productsAndQuantity.put(prod, amount);
         } else {
             for (Product p : productsAndQuantity.keySet()) {
-                if (p.getProdId() == prodId) {
-                    productsAndQuantity.replace(p, productsAndQuantity.get(p) + amount);
-                } else {
-                    productsAndQuantity.put(prod, amount);
+                if (p.equals(prod)) {
+                    pcoin = p;
                 }
             }
         }
-        
-        
-        /*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath() + "../cart/cartList.jsf");
-        } catch (IOException ex) {
-            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        if (pcoin != null) {
+            productsAndQuantity.replace(pcoin, productsAndQuantity.get(pcoin) + amount);
+        } else {
+            productsAndQuantity.put(prod, amount);
+        }
+
+        this.amount = 1;
+        System.err.println(productsAndQuantity.toString());
     }
 
     public double calculateTotalPrice() {
@@ -149,7 +146,7 @@ public class Cart implements Serializable {
     }
 
     public void generateOrder() {
-        
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
@@ -205,7 +202,7 @@ public class Cart implements Serializable {
         entityManagerFactory.close();
 
         this.clearCart();
-        
+
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "../home/homePageUser.jsf");
