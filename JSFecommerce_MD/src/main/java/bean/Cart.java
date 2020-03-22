@@ -115,6 +115,7 @@ public class Cart implements Serializable {
     }
 
     public void addProduct(Product prod) {
+        this.amount = 1;
         long prodId = prod.getProdId();
         if (productsAndQuantity.isEmpty()) {
             productsAndQuantity.put(prod, amount);
@@ -127,7 +128,7 @@ public class Cart implements Serializable {
                 }
             }
         }
-        this.amount = 1;
+        
         
         /*ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

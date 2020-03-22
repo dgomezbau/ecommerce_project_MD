@@ -11,7 +11,7 @@
 
                 <h2>#{navigateToProductPage.prod.prodName}</h2>
 
-                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" panelWidth="1000" panelHeight="500" showCaption="true">
                     <p:graphicImage name="#{image}" alt="#{navigateToProductPage.prod.prodDescription}" title="#{navigateToProductPage.prod.prodName}"/>
                 </p:galleria>
                 
@@ -32,6 +32,8 @@
                         <h:panelGrid id="display" columns="2" cellpadding="10">
                             <h:outputText value="Product: " />
                             <h:outputText value="#{navigateToProductPage.prod.prodName}" />
+                            <h:outputText value="Units: " />
+                            <h:outputText value="#{cart.amount}" />
                         </h:panelGrid>
                     </p:dialog>
 

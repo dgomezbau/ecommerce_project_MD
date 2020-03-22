@@ -41,6 +41,7 @@ public class NavigateToProductPage implements Serializable{
     private String ROOT_IMG = "images/";
 
     public void productWeb(long prodID) {
+        imgRef.clear();
         this.prodId = prodID;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
