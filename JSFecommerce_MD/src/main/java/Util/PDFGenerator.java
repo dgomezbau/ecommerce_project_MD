@@ -58,70 +58,62 @@ public class PDFGenerator implements Serializable{
 
         try {
             document.add(new Paragraph("Invoice number: " + inv.getInvoiceId()));
+            document.add(new Paragraph("________________________________"));
             document.add(new Paragraph("Customer Data:"));
             document.add(new Paragraph("Name: " + cus.getFirstName() + " " + cus.getLastName()));
             document.add(new Paragraph("Address: " + cus.getStreet() + " " + cus.getAppt() + " " + cus.getCity() + " " + cus.getZipCode()));
-
+            document.add(new Paragraph("________________________________"));
+            document.add(new Paragraph("Order Details: " + ord.getOrderDesc()));
+            document.add(new Paragraph("Invoice date: " + inv.getOrderRaisedDt()));
         } catch (DocumentException ex) {
             Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("E1");
         }
         Table table;
         try {
-            table = new Table(6);
+            table = new Table(4);
             table.setBorderWidth(1);
             table.setBorderColor(new Color(50, 100, 200));
             table.setPadding(5);
             table.setSpacing(5);
             Cell cell = new Cell("header");
             cell.setHeader(true);
-            cell = new Cell("#");
-            table.addCell(cell);
-            cell = new Cell("Description");
+            cell = new Cell("Number");
             table.addCell(cell);
             cell = new Cell("Products");
             table.addCell(cell);
             cell = new Cell("Total Price");
             table.addCell(cell);
-            cell = new Cell("Creation Date");
-            table.addCell(cell);
-            cell = new Cell("Settle Date");
+            cell = new Cell("State");
             table.addCell(cell);
             table.endHeaders();
 
-            table.addCell("Invoice Details");
             table.addCell(String.valueOf(inv.getInvoiceId()));
-            table.addCell(ord.getOrderDesc());
             System.err.println(ord.getOrderDesc());
             String prodInOrd = "";
             for(Product p : ord.getProductList()){
-                prodInOrd = prodInOrd + p.getProdName() + " ";
+                prodInOrd = prodInOrd + p.getProdName() + "\n";
             }
             table.addCell(prodInOrd);
             
             table.addCell(String.valueOf(ord.getTotPrice()));
             
-            table.addCell(String.valueOf(inv.getOrderRaisedDt()));
             if (inv.getOrderSettledDt()==null){
                 table.addCell("Not Settled");
                 
             }else{
-                table.addCell(String.valueOf(inv.getOrderSettledDt()));
+                table.addCell("Settled");
             }
-            
             try {
                 document.add(table);
                 document.close();
             } catch (DocumentException ex) {
-                System.err.println("E2");
                 Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } catch (BadElementException ex) {
-            System.err.println("E3");
             Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.err.println("Pdf generado??");
     }
 
 }

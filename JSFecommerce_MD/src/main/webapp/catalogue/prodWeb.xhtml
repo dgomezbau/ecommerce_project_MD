@@ -11,7 +11,7 @@
 
                 <h2>#{navigateToProductPage.prod.prodName}</h2>
 
-                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" panelWidth="1000" panelHeight="500" showCaption="true">
+                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" panelWidth="800" panelHeight="370" showCaption="true">
                     <p:graphicImage name="#{image}" alt="#{navigateToProductPage.prod.prodDescription}" title="#{navigateToProductPage.prod.prodName}"/>
                 </p:galleria>
                 
@@ -21,6 +21,10 @@
 
                 <h:form>
                     <h:panelGrid columns="2" styleClass="formTable">
+                        Price: 
+                        <p:outputLabel style="font-size: large">
+                            #{navigateToProductPage.prod.price} &euro;
+                        </p:outputLabel>
                         Amount to buy: 
                         <p:spinner min="1" max="100" value="#{cart.amount}"/>
                     </h:panelGrid>
