@@ -11,19 +11,18 @@ import javax.persistence.*;
 @Entity(name = "ORDER_INVOICE")
 
 @NamedQueries({
-    @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e")})
+    @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e"),
+    @NamedQuery(name="updateInvoiceDate", query="UPDATE ORDER_INVOICE oi SET oi.orderSettledDt = :date_settled, oi.orderCancelledDt = :date_cancelled WHERE oi.invoiceId = :invoice_id")}
+)
 
 public class Invoice implements Serializable {
-    
-    
-            
-            
+
     @Id //signifies the primary key
     @Column(name = "INVOICE_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long invoiceId;
 
-    @Column(name = "ORDER_ID",updatable = false, insertable = false)
+    @Column(name = "ORDER_ID", updatable = false, insertable = false)
     private long orderId;
 
     @Column(name = "AMOUNT_DUE", precision = 2)
