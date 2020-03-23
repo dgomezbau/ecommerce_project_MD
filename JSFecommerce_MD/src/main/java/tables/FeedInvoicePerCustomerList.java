@@ -5,7 +5,7 @@
  */
 package tables;
 
-import bean.Control;
+import bean.CustomerInfo;
 import entity.Invoice;
 import entity.Order;
 import java.io.Serializable;
@@ -23,17 +23,18 @@ import javax.persistence.TypedQuery;
  *
  * @author Daniel Gomez
  */
-@Named(value = "feedInvoiceList")
+@Named(value = "feedInvoicePerCustomerList")
 @SessionScoped
-public class FeedInvoiceList implements Serializable {
+public class FeedInvoicePerCustomerList implements Serializable {
 
+    
     private List<Invoice> listInv = new ArrayList<>();
 
     @Inject
-    private Control ctrl;
+    private CustomerInfo ci;
     
     
-    public List<Invoice> feedInvList() {
+    public List<Invoice> feedInvPUList() {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -45,7 +46,7 @@ public class FeedInvoiceList implements Serializable {
 
         for (Invoice i : listAllInv) {
             Order ord = em.find(Order.class, i.getOrderId());
-            if (ctrl.getCustom().getCustId() == ord.getCustId()) {
+            if (this.ci.getCustomer().getCustId() == ord.getCustId()) {
                 this.listInv.add(i);
             }
         }
@@ -64,12 +65,12 @@ public class FeedInvoiceList implements Serializable {
         this.listInv = listInv;
     }
 
-    public Control getCtrl() {
-        return ctrl;
+    public CustomerInfo getCi() {
+        return ci;
     }
 
-    public void setCtrl(Control ctrl) {
-        this.ctrl = ctrl;
+    public void setCi(CustomerInfo ci) {
+        this.ci = ci;
     }
 
 }

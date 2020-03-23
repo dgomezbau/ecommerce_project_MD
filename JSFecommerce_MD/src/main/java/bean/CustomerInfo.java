@@ -42,6 +42,7 @@ public class CustomerInfo implements Serializable{
         
         redirect("../admin/invoicePerCustomerList.jsf");
         
+        
     }
     
     private void redirect(String page) {
