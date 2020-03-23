@@ -116,7 +116,7 @@ public class Control implements Serializable {
             } else {
                 this.idUser = custom.getCustId();
                 this.name = custom.getFirstName()+" "+ custom.getLastName();
-                redirect("../home/homePageUser.jsf");
+                redirect("../home/homePage.jsf");
             }
         }
     }

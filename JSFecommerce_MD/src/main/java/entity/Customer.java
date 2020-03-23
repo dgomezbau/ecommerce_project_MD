@@ -43,7 +43,9 @@ public class Customer implements Serializable {
     
     @Column(name = "PASS", nullable = false)
     private String pass;
-
+    
+    @Column(name = "LEVEL", nullable = false)
+    private int level;
       
     //@Version
     @Temporal(TemporalType.TIMESTAMP)
@@ -155,6 +157,14 @@ public class Customer implements Serializable {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 }
