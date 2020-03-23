@@ -11,7 +11,7 @@
                 <p:fieldset legend="Products">
                     <br/>
                     <p:dataTable var="Invoice"
-                                 value="#{feedInvoiceList.listInv}">
+                                 value="#{feedInvoiceList.feedInvList()}">
                         <p:column headerText="ID">#{Invoice.invoiceId}</p:column>
                         <p:column headerText="Price">#{Invoice.amountDue}</p:column>
                         <p:column headerText="Date">#{Invoice.orderRaisedDt}</p:column>

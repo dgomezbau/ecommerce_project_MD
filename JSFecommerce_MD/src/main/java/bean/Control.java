@@ -88,7 +88,7 @@ public class Control implements Serializable {
         EntityManager em = entityManagerFactory.createEntityManager();
 
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findbyemail", Customer.class);
-        query.setParameter("email", userName);
+        query.setParameter("email", this.userName);
         this.custom = query.getSingleResult();
 
         em.close();
@@ -117,8 +117,8 @@ public class Control implements Serializable {
                 
                 //Check for level not implemented
                 
-                idUser = custom.getCustId();
-                name = custom.getFirstName()+" "+ custom.getLastName();
+                this.idUser = custom.getCustId();
+                this.name = custom.getFirstName()+" "+ custom.getLastName();
                 
                 
                 redirect("../home/homePageUser.jsf");

@@ -67,7 +67,6 @@ public class PDFGenerator implements Serializable{
             document.add(new Paragraph("Invoice date: " + inv.getOrderRaisedDt()));
         } catch (DocumentException ex) {
             Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("E1");
         }
         Table table;
         try {
@@ -89,7 +88,6 @@ public class PDFGenerator implements Serializable{
             table.endHeaders();
 
             table.addCell(String.valueOf(inv.getInvoiceId()));
-            System.err.println(ord.getOrderDesc());
             String prodInOrd = "";
             for(Product p : ord.getProductList()){
                 prodInOrd = prodInOrd + p.getProdName() + "\n";
