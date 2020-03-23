@@ -34,7 +34,8 @@
                     </h:panelGrid>
                     <p:commandButton value="Add To Cart" 
                                      action="#{cart.addProduct(navigateToProductPage.prod)}"
-                                     oncomplete="PF('dlg').show()"/>
+                                     oncomplete="PF('dlg').show()"
+                                     style="font-size: large"/>
 
                     <p:dialog header="Product Successfully added to your Cart" widgetVar="dlg" showEffect="fold" hideEffect="fold">
                         <h:panelGrid id="display" columns="2" cellpadding="10">

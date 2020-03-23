@@ -114,15 +114,15 @@ public class Control implements Serializable {
             if (!custom.getPass().equals(pass)) {
                 redirect("../errors/loginError.jsf");
             } else {
-                
-                //Check for level not implemented
-                
                 this.idUser = custom.getCustId();
                 this.name = custom.getFirstName()+" "+ custom.getLastName();
-                
-                
                 redirect("../home/homePageUser.jsf");
             }
         }
+    }
+    
+    public void logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        redirect("../home/homePage.jsf");
     }
 }
