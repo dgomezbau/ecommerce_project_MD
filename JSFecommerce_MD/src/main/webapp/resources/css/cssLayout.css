@@ -7,12 +7,15 @@
     margin: 0px 0px 10px 0px;
 }
 
+
+
 #bottom {
     position: relative;
     background-color: #c2dfef;
     padding: 5px;
     margin: 10px 0px 0px 0px;
 }
+
 
 #left {
     float: left;
@@ -29,16 +32,24 @@
     width: 150px;
 }
 
+
 .center_content {
     position: relative;
     background-color: #dddddd;
     padding: 5px;
 }
 
+#img-move{
+    display: block;
+    width: 500px;
+    
+
+}
+
 .left_content {
     background-color: white;
     padding: 5px;
-    margin-left: 170px;
+    margin-left: auto;
 }
 
 .right_content {
