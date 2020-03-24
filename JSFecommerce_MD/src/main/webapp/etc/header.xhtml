@@ -1,3 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -15,15 +17,15 @@
     </div>
 
     <h:form>
-        <p:menubar>
-            <p:menuitem value="Home" url="./../home/homePage.jsf"/>
-            <p:menuitem value="Login" url="./../home/loginPage.jsf" rendered="#{control.getCustom() eq null}"/>
-            <p:menuitem value="Catalog" url="./../catalogue/productList_v2.jsf" rendered="#{control.getCustom() ne null}"/>
-            <p:menuitem value="Cart" url="./../cart/cartList.jsf" rendered="#{control.getCustom() ne null}"/>
-            <p:menuitem value="Invoices" url="./../invoices/invoicesList.jsf" rendered="#{control.getCustom().getLevel() eq 1}"/>
-            <p:menuitem value="Customers" url="./../admin/customerList.jsf" rendered="#{control.getCustom().getLevel() eq 0}"/>
-            <p:menuitem value="Product Manager" url="./../admin/productManagement.jsf" rendered="#{control.getCustom().getLevel() eq 0}"/>
-            <p:menuitem value="Logout" url="./../home/logoutPage.jsf" rendered="#{control.getCustom() ne null}"/>
+        <p:menubar style="background-color: darkmagenta; font-size: medium; padding: 3px">
+            <p:menuitem value="Home" url="./../home/homePage.jsf" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Login" url="./../home/loginPage.jsf" rendered="#{control.getCustom() eq null}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Catalog" url="./../catalogue/productList_v2.jsf" rendered="#{control.getCustom() ne null}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Cart" url="./../cart/cartList.jsf" rendered="#{control.getCustom() ne null}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Invoices" url="./../invoices/invoicesList.jsf" rendered="#{control.getCustom().getLevel() eq 1}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Customers" url="./../admin/customerList.jsf" rendered="#{control.getCustom().getLevel() eq 0}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Product Manager" url="./../admin/productManagement.jsf" rendered="#{control.getCustom().getLevel() eq 0}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
+            <p:menuitem value="Logout" url="./../home/logoutPage.jsf" rendered="#{control.getCustom() ne null}" style="background-color: khaki; padding-left: 20px; padding-right: 20px"/>
 
             <f:facet name="options">
                 <p:inputText value="#{searchController.searchString}"
