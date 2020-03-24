@@ -30,8 +30,7 @@ a:link:hover, a:visited:hover  {
 
 .buttongeneral{background-color: mediumorchid;
                background-clip: padding-box;
-               padding: 13;
+               padding: 13px;
                font-size: large;
-               border-bottom: #D20005;
-               
+               border-bottom: #D20005;          
 }
