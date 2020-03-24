@@ -7,14 +7,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
        
     <body>
-        <ui:composition template="./../etc/pageTemplateUser.xhtml">
+        <ui:composition template="./../etc/pageTempla.xhtml">
             <ui:define name="content">
                 <br/>
                 <p>Your Order:</p>
                 <p:fieldset legend="Order Data">
                     <br/>
                     <p:dataTable var="Customer"
-                                 value="#{cart.obtainOrderCustomer()}">
+                                 value="#{control.custom}">
                         <p:column headerText="Name">#{Customer.firstName} #{Customer.lastName}</p:column>
                         <p:column headerText="Address">"#{Customer.street} #{Customer.city} #{Customer.appt}"</p:column>
                     </p:dataTable>
@@ -36,7 +36,7 @@
 
                 <p:fieldset legend="Actions">
                     <h:form>
-                        <p:commandButton style="float: left;" value="Discard" ajax="false" action="/catalogue/productList"/>
+                        <p:commandButton style="float: left;" value="Discard" ajax="false" action="/catalogue/productList_v2"/>
                     </h:form>
                     
                     <h:form>

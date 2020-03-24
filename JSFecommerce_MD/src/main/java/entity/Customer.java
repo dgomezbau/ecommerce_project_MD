@@ -12,7 +12,9 @@ import java.util.Date;
 @Entity(name = "CUSTOMER")
 
 @NamedQueries({
-    @NamedQuery(name = "Customer.findbyemail", query = "SELECT e FROM CUSTOMER e WHERE e.email = :email")})
+    @NamedQuery(name = "Customer.findbyemail", query = "SELECT e FROM CUSTOMER e WHERE e.email = :email"),
+    @NamedQuery(name = "Customer.findAll", query = "SELECT e FROM CUSTOMER e")})
+
 public class Customer implements Serializable {
 
     @Id //signifies the primary key
@@ -40,17 +42,17 @@ public class Customer implements Serializable {
 
     @Column(name = "EMAIL", nullable = false)
     private String email;
-    
+
     @Column(name = "PASS", nullable = false)
     private String pass;
 
-      
+    @Column(name = "LEVEL", nullable = false)
+    private int level;
+
     //@Version
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_UPDATED_TIME")
     private java.util.Date updatedTime;
-
-
 
     @OneToMany(mappedBy = "customer", targetEntity = Order.class, fetch = FetchType.EAGER)
     private Collection<Order> orders;
@@ -155,6 +157,14 @@ public class Customer implements Serializable {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 }

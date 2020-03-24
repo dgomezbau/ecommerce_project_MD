@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -40,21 +41,12 @@ public class Cart implements Serializable {
     private Order order;
 
     private int amount = 1;
-    private Product currProd = null;
-
+    
     @Inject
     private Control ctrl;
 
     public Map<Product, Integer> getProductsAndQuantity() {
         return productsAndQuantity;
-    }
-
-    public Product getCurrProd() {
-        return currProd;
-    }
-
-    public void setCurrProd(Product currProd) {
-        this.currProd = currProd;
     }
 
     public Order getOrder() {
@@ -120,6 +112,13 @@ public class Cart implements Serializable {
     public double calculateTotalPrice() {
         double totalPrice = 0;
         Product prod = null;
+        /*Iterator it = this.productsAndQuantity.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            prod =(Product)pair.getKey();
+            totalPrice = totalPrice + Double.parseDouble(prod.getPrice())*(Integer)pair.getValue();
+            it.remove();
+        }*/
         for (Product p : productsAndQuantity.keySet()) {
             prod = p;
             totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
@@ -142,8 +141,16 @@ public class Cart implements Serializable {
             prod = p;
             totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
         }
-        
-        
+
+        /*Iterator it = this.productsAndQuantity.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            prod =(Product)pair.getKey();
+            totalPrice = totalPrice + Double.parseDouble(prod.getPrice())*(Integer)pair.getValue();
+            prodList.add(prod);
+            it.remove();
+        }*/
+
         Order ord = new Order();
         Invoice invoice = new Invoice();
 
@@ -180,10 +187,9 @@ public class Cart implements Serializable {
 
         em.close();
         entityManagerFactory.close();
-
-        this.clearCart();
-
         redirect("../home/homePageUser.jsf");
+        clearCartAfterPay();
+        
     }
 
     public Customer obtainOrderCustomer() {
@@ -197,6 +203,10 @@ public class Cart implements Serializable {
     public void clearCart() {
         productsAndQuantity.clear();
         redirect("cartList.jsf");
+    }
+    
+    private void clearCartAfterPay(){
+        productsAndQuantity.clear();
     }
 
     public int productsCount() {

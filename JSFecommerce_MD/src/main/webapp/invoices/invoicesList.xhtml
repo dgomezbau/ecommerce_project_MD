@@ -4,14 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <ui:composition template="./../etc/pageTemplateUser.xhtml">
+        <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
                 <br/>
                 <p>Invoices</p>
                 <p:fieldset legend="Products">
                     <br/>
                     <p:dataTable var="Invoice"
-                                 value="#{feedInvoiceList.listInv}">
+                                 value="#{feedInvoiceList.feedInvList()}">
                         <p:column headerText="ID">#{Invoice.invoiceId}</p:column>
                         <p:column headerText="Price">#{Invoice.amountDue}</p:column>
                         <p:column headerText="Date">#{Invoice.orderRaisedDt}</p:column>

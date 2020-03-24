@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <body>
-        <ui:composition template="./../etc/pageTemplateUser.xhtml">
+        <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
                 <div>
                 <h2>#{navigateToProductPage.prod.prodName}</h2>
@@ -21,16 +21,21 @@
                 <div>
                 <h:form>
                     <h:panelGrid columns="2" styleClass="formTable">
-                        Price: 
+                        <p:outputLabel style="font-size: large">
+                            Price
+                        </p:outputLabel> 
                         <p:outputLabel style="font-size: large">
                             #{navigateToProductPage.prod.price} &euro;
                         </p:outputLabel>
-                        Amount to buy: 
+                        <p:outputLabel style="font-size: large">
+                           Amount to buy:
+                        </p:outputLabel> 
                         <p:spinner min="1" max="100" value="#{cart.amount}"/>
                     </h:panelGrid>
                     <p:commandButton value="Add To Cart" 
                                      action="#{cart.addProduct(navigateToProductPage.prod)}"
-                                     oncomplete="PF('dlg').show()"/>
+                                     oncomplete="PF('dlg').show()"
+                                     style="font-size: large"/>
 
                     <p:dialog header="Product Successfully added to your Cart" widgetVar="dlg" showEffect="fold" hideEffect="fold">
                         <h:panelGrid id="display" columns="2" cellpadding="10">

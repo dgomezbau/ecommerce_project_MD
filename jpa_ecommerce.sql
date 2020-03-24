@@ -28,14 +28,16 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `EMAIL` varchar(30) NOT NULL,
   `LAST_UPDATED_TIME` datetime DEFAULT NULL,
   `PASS` varchar(50) NOT NULL,
+  `LEVEL` int(11) NOT NULL,
   PRIMARY KEY (`CUST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table jpa_ecommerce.customer: ~2 rows (approximately)
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-REPLACE INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `STREET`, `APPT`, `CITY`, `ZIP_CODE`, `EMAIL`, `LAST_UPDATED_TIME`, `PASS`) VALUES
-	(100, 'Daniel', 'Gómez', 'Calle Mayor 3', '2A', 'Calatorao', '50026', 'daniel.gomez@movicoders.com', '2020-02-29 08:59:07', '1234'),
-	(110, 'Mihai', 'Aurar', 'Plaza Cataluña 1', '1D', 'Huesca', '22084', 'mihai.aurar@movicoders.com', '2020-02-29 08:59:07', '1234');
+REPLACE INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `STREET`, `APPT`, `CITY`, `ZIP_CODE`, `EMAIL`, `LAST_UPDATED_TIME`, `PASS`, `LEVEL`) VALUES
+	(1, 'Paco', 'Fernández', 'Plaza España', '15', 'Zaragoza', '50007', 'paco.fer@movi.com', '2020-03-23 19:41:57', '1234', 0),
+	(100, 'Daniel', 'Gómez', 'Calle Mayor 3', '2A', 'Calatorao', '50026', 'daniel.gomez@movicoders.com', '2020-02-29 08:59:07', '1234', 1),
+	(110, 'Mihai', 'Aurar', 'Plaza Cataluña 1', '1D', 'Huesca', '22084', 'mihai.aurar@movicoders.com', '2020-02-29 08:59:07', '1234', 1);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.orders
@@ -51,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `ORDER_FK` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`CUST_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.orders: ~15 rows (approximately)
+-- Dumping data for table jpa_ecommerce.orders: ~25 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 REPLACE INTO `orders` (`ORDER_ID`, `CUST_ID`, `TOTAL_PRICE`, `OREDER_DESC`, `ORDER_DATE`, `LAST_UPDATED_TIME`) VALUES
 	(111, 100, 100, 'Internet and phone', '2020-02-29 08:59:07', '2020-02-29 08:59:07'),
@@ -68,7 +70,17 @@ REPLACE INTO `orders` (`ORDER_ID`, `CUST_ID`, `TOTAL_PRICE`, `OREDER_DESC`, `ORD
 	(901, 110, 240, 'Test Description', '2020-03-20 18:32:06', '2020-03-20 18:32:06'),
 	(951, 110, 240, 'Test Description', '2020-03-20 21:42:15', '2020-03-20 21:42:15'),
 	(1001, 110, 53, 'Test Description', '2020-03-20 21:58:44', '2020-03-20 21:58:44'),
-	(1051, 110, 336, 'Test Description', '2020-03-20 22:17:53', '2020-03-20 22:17:53');
+	(1051, 110, 336, 'Test Description', '2020-03-20 22:17:53', '2020-03-20 22:17:53'),
+	(1101, 100, 50, 'Test Description', '2020-03-20 23:44:11', '2020-03-20 23:44:11'),
+	(1151, 100, 14800, 'Test Description', '2020-03-20 23:45:33', '2020-03-20 23:45:33'),
+	(1251, 100, 8, 'Your adquisition on e-Toiler Paper on Sun Mar 22 20:37:09 CET 2020', '2020-03-22 19:37:09', '2020-03-22 19:37:09'),
+	(1301, 100, 174, 'Your adquisition on e-Toiler Paper on Mon Mar 23 11:50:57 CET 2020', '2020-03-23 10:50:57', '2020-03-23 10:50:57'),
+	(1351, 100, 109, 'Your adquisition on e-Toiler Paper on Mon Mar 23 16:35:55 CET 2020', '2020-03-23 15:35:55', '2020-03-23 15:35:55'),
+	(1401, 100, 166, 'Your adquisition on e-Toiler Paper on Mon Mar 23 18:11:01 CET 2020', '2020-03-23 17:11:01', '2020-03-23 17:11:01'),
+	(1451, 100, 8, 'Your adquisition on e-Toiler Paper on Mon Mar 23 18:14:08 CET 2020', '2020-03-23 17:14:08', '2020-03-23 17:14:08'),
+	(1501, 100, 16, 'Your adquisition on e-Toiler Paper on Mon Mar 23 18:17:26 CET 2020', '2020-03-23 17:17:26', '2020-03-23 17:17:26'),
+	(1551, 100, 56, 'Your adquisition on e-Toiler Paper on Mon Mar 23 18:21:06 CET 2020', '2020-03-23 17:21:06', '2020-03-23 17:21:06'),
+	(1601, 100, 40, 'Your adquisition on e-Toiler Paper on Mon Mar 23 18:53:18 CET 2020', '2020-03-23 17:53:18', '2020-03-23 17:53:18');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.order_detail
@@ -83,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   CONSTRAINT `PROD_ID_FK` FOREIGN KEY (`PROD_ID`) REFERENCES `product` (`PROD_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.order_detail: ~19 rows (approximately)
+-- Dumping data for table jpa_ecommerce.order_detail: ~33 rows (approximately)
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
 REPLACE INTO `order_detail` (`ORDER_ID`, `PROD_ID`, `PRICE`, `LAST_UPDATED_TIME`) VALUES
 	(111, 2020, 40, '2020-02-29 08:59:07'),
@@ -104,7 +116,21 @@ REPLACE INTO `order_detail` (`ORDER_ID`, `PROD_ID`, `PRICE`, `LAST_UPDATED_TIME`
 	(1001, 2000, 8, NULL),
 	(1001, 2020, 7, NULL),
 	(1051, 2000, 8, NULL),
-	(1051, 2050, 148, NULL);
+	(1051, 2050, 148, NULL),
+	(1101, 2010, 50, NULL),
+	(1151, 2050, 148, NULL),
+	(1251, 2000, 8, NULL),
+	(1301, 2000, 8, NULL),
+	(1301, 2010, 50, NULL),
+	(1351, 2000, 8, NULL),
+	(1351, 2010, 50, NULL),
+	(1351, 2020, 7, NULL),
+	(1401, 2000, 8, NULL),
+	(1401, 2010, 50, NULL),
+	(1451, 2000, 8, NULL),
+	(1501, 2000, 8, NULL),
+	(1551, 2000, 8, NULL),
+	(1601, 2000, 8, NULL);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.order_invoice
@@ -121,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `order_invoice` (
   CONSTRAINT `ORDER_INVOICE_FK` FOREIGN KEY (`ORDER_ID`) REFERENCES `orders` (`ORDER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.order_invoice: ~15 rows (approximately)
+-- Dumping data for table jpa_ecommerce.order_invoice: ~25 rows (approximately)
 /*!40000 ALTER TABLE `order_invoice` DISABLE KEYS */;
 REPLACE INTO `order_invoice` (`INVOICE_ID`, `ORDER_ID`, `DATE_RAISED`, `AMOUNT_DUE`, `DATE_SETTLED`, `DATE_CANCELLED`, `LAST_UPDATED_TIME`) VALUES
 	(1, 111, '2020-02-29 08:59:07', 100, '2020-02-29 08:59:07', NULL, '2020-02-29 08:59:07'),
@@ -138,7 +164,17 @@ REPLACE INTO `order_invoice` (`INVOICE_ID`, `ORDER_ID`, `DATE_RAISED`, `AMOUNT_D
 	(902, 901, '2020-03-20 18:32:06', 240, NULL, NULL, '2020-03-20 18:32:06'),
 	(952, 951, '2020-03-20 21:42:15', 240, NULL, NULL, '2020-03-20 21:42:15'),
 	(1002, 1001, '2020-03-20 21:58:44', 53, NULL, NULL, '2020-03-20 21:58:44'),
-	(1052, 1051, '2020-03-20 22:17:53', 336, NULL, NULL, '2020-03-20 22:17:53');
+	(1052, 1051, '2020-03-20 22:17:53', 336, NULL, NULL, '2020-03-20 22:17:53'),
+	(1102, 1101, '2020-03-20 23:44:11', 50, NULL, NULL, '2020-03-20 23:44:11'),
+	(1152, 1151, '2020-03-20 23:45:33', 14800, NULL, NULL, '2020-03-20 23:45:33'),
+	(1252, 1251, '2020-03-22 19:37:09', 8, NULL, NULL, '2020-03-22 19:37:09'),
+	(1302, 1301, '2020-03-23 10:50:57', 174, NULL, NULL, '2020-03-23 10:50:57'),
+	(1352, 1351, '2020-03-23 15:35:55', 109, NULL, NULL, '2020-03-23 15:35:55'),
+	(1402, 1401, '2020-03-23 17:11:01', 166, NULL, NULL, '2020-03-23 17:11:01'),
+	(1452, 1451, '2020-03-23 17:14:08', 8, NULL, NULL, '2020-03-23 17:14:08'),
+	(1502, 1501, '2020-03-23 17:17:26', 16, NULL, NULL, '2020-03-23 17:17:26'),
+	(1552, 1551, '2020-03-23 17:21:06', 56, NULL, NULL, '2020-03-23 17:21:06'),
+	(1602, 1601, '2020-03-23 17:53:18', 40, NULL, NULL, '2020-03-23 17:53:18');
 /*!40000 ALTER TABLE `order_invoice` ENABLE KEYS */;
 
 -- Dumping structure for table jpa_ecommerce.product
@@ -169,10 +205,10 @@ CREATE TABLE IF NOT EXISTS `sequence` (
   PRIMARY KEY (`SEQ_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table jpa_ecommerce.sequence: ~1 rows (approximately)
+-- Dumping data for table jpa_ecommerce.sequence: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sequence` DISABLE KEYS */;
 REPLACE INTO `sequence` (`SEQ_NAME`, `SEQ_COUNT`) VALUES
-	('SEQ_GEN', 1100);
+	('SEQ_GEN', 1650);
 /*!40000 ALTER TABLE `sequence` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
