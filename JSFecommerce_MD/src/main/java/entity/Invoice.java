@@ -11,19 +11,24 @@ import javax.persistence.*;
 @Entity(name = "ORDER_INVOICE")
 
 @NamedQueries({
-    @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e")})
+    @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e"),
+    @NamedQuery(name = "Invoice.updateInvoiceDate", query = "UPDATE ORDER_INVOICE e SET e.orderSettledDt = :date_settled, e.orderCancelledDt = :date_cancelled WHERE e.invoiceId = :invoice_id"),
+    @NamedQuery(name = "Invoice.InvoiceSettle", query = "UPDATE ORDER_INVOICE e SET e.orderSettledDt = :date_settled WHERE e.invoiceId = :invoice_id"),
+    @NamedQuery(name = "Invoice.updateInvoiceCancel", query = "UPDATE ORDER_INVOICE e SET e.orderCancelledDt = :date_cancelled WHERE e.invoiceId = :invoice_id")}
+)
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "Invoice.InvoiceSettle2", query = "UPDATE ORDER_INVOICE SET date_settled = ? WHERE invoice_id = ?"),
+    @NamedNativeQuery(name = "Invoice.InvoiceCancel", query = "UPDATE ORDER_INVOICE SET date_cancelled = ? WHERE invoice_id = ?")
+})
 
 public class Invoice implements Serializable {
-    
-    
-            
-            
+
     @Id //signifies the primary key
     @Column(name = "INVOICE_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long invoiceId;
 
-    @Column(name = "ORDER_ID",updatable = false, insertable = false)
+    @Column(name = "ORDER_ID", updatable = false, insertable = false)
     private long orderId;
 
     @Column(name = "AMOUNT_DUE", precision = 2)

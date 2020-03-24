@@ -1,12 +1,37 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./../etc/pageTemplate.xhtml">
+            <ui:define name="content">
+                <p:fieldset legend="Invoices">
+                    <br/>
+                    <p:dataTable var="Invoice"
+                                 value="#{feedInvoicePerCustomerList.feedInvPUList()}">
+                        <p:column headerText="ID">#{Invoice.invoiceId}</p:column>
+                        <p:column headerText="Price">#{Invoice.amountDue}</p:column>
+                        <p:column headerText="Date raised">#{Invoice.orderRaisedDt}</p:column>
+                        <p:column headerText="Date settled">#{Invoice.orderSettledDt}</p:column>
+                        <p:column headerText="Date cancelled">#{Invoice.orderCancelledDt}</p:column>
+                        <p:column headerText="Edit">
+                            <h:form>
+                                <p:commandButton
+                                    value="Edit" ajax="false" action="#{invoiceEdit.obtainCurrentInvoice(Invoice)}">
+                                </p:commandButton>
+                            </h:form>
 
+                        </p:column>
+                    </p:dataTable>
+
+                    <br/>
+                </p:fieldset>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

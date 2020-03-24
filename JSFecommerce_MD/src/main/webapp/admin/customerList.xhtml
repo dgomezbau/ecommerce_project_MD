@@ -8,10 +8,8 @@
     <body>
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                <br/>
-                <p>Product in the Catalogue</p>
-
-                <p:fieldset legend="Products">
+                
+                <p:fieldset legend="Users">
                     <br/>
                     <h:form>
                         <p:dataTable var="Customer"
@@ -21,7 +19,7 @@
                             <p:column headerText="Level">#{Customer.level}</p:column>
                             <p:column headerText="Form">
                                 <p:commandButton 
-                                    value="Go to Customer Data" ajax="false" action="#{customerInfo.loadCustomer(id)}">
+                                    value="Go to Customer Data" ajax="false" action="#{customerInfo.loadCustomer(Customer.custId)}">
                                 </p:commandButton>
 
                             </p:column>
