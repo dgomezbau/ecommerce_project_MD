@@ -12,8 +12,14 @@ import javax.persistence.*;
 
 @NamedQueries({
     @NamedQuery(name = "Invoice.findAll", query = "SELECT e FROM ORDER_INVOICE e"),
-    @NamedQuery(name="updateInvoiceDate", query="UPDATE ORDER_INVOICE oi SET oi.orderSettledDt = :date_settled, oi.orderCancelledDt = :date_cancelled WHERE oi.invoiceId = :invoice_id")}
+    @NamedQuery(name = "Invoice.updateInvoiceDate", query = "UPDATE ORDER_INVOICE e SET e.orderSettledDt = :date_settled, e.orderCancelledDt = :date_cancelled WHERE e.invoiceId = :invoice_id"),
+    @NamedQuery(name = "Invoice.InvoiceSettle", query = "UPDATE ORDER_INVOICE e SET e.orderSettledDt = :date_settled WHERE e.invoiceId = :invoice_id"),
+    @NamedQuery(name = "Invoice.updateInvoiceCancel", query = "UPDATE ORDER_INVOICE e SET e.orderCancelledDt = :date_cancelled WHERE e.invoiceId = :invoice_id")}
 )
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "Invoice.InvoiceSettle2", query = "UPDATE ORDER_INVOICE SET date_settled = ? WHERE invoice_id = ?"),
+    @NamedNativeQuery(name = "Invoice.InvoiceCancel", query = "UPDATE ORDER_INVOICE SET date_cancelled = ? WHERE invoice_id = ?")
+})
 
 public class Invoice implements Serializable {
 

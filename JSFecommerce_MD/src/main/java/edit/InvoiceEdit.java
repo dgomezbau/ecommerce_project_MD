@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -21,13 +22,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transaction;
 
 /**
  *
  * @author Daniel Gomez
  */
 @Named(value = "invoiceEdit")
-@RequestScoped
+@SessionScoped
 public class InvoiceEdit implements Serializable{
 
     Invoice invoice;
@@ -43,8 +45,9 @@ public class InvoiceEdit implements Serializable{
         this.invRaised = inv.getOrderRaisedDt();
         this.invSettled = inv.getOrderSettledDt();
         this.invCancelled = inv.getOrderCancelledDt();
-        
         redirect("../admin/invoiceEditor.jsf");
+        
+        System.err.println(this.invoice.getInvoiceId());
     }
     
     public void editInvoice(){
@@ -57,8 +60,42 @@ public class InvoiceEdit implements Serializable{
         query.setParameter("INVOICE_ID", this.invoice.getInvoiceId());
         query.executeUpdate();
         
-        redirect("../admin/ivoicePerCustomerList.jsf");
+        redirect("../admin/invoicePerCustomerList.jsf");
         
+    }
+    
+    public void settleInv(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Invoice>query = em.createNamedQuery("Invoice.InvoiceSettle2", Invoice.class);
+        query.setParameter(1, new Date());
+        query.setParameter(2, this.invoice.getInvoiceId());
+        //query.setParameter("date_settled", new Date());
+        //query.setParameter("invoice_id", this.invoice.getInvoiceId());
+        query.executeUpdate();
+        em.getTransaction().commit();
+        
+        em.close();
+        entityManagerFactory.close();
+        
+        redirect("../admin/invoicePerCustomerList.jsf");
+    }
+    
+    public void cancelInv(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Invoice>query = em.createNamedQuery("Invoice.InvoiceCancel", Invoice.class);
+        query.setParameter(1, new Date());
+        query.setParameter(2, this.invoice.getInvoiceId());
+        query.executeUpdate();
+        em.getTransaction().commit();
+        
+        em.close();
+        entityManagerFactory.close();
+        
+        redirect("../admin/invoicePerCustomerList.jsf");
     }
     
     private void redirect(String page) {

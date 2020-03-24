@@ -8,27 +8,23 @@
     <body>
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                
                 <h:panelGrid columns="1" styleClass="formTable">
-                <p:outputLabel style="font-size: large">#{"Invoice ID: "+=invoiceEdit.invoice.invoiceId}</p:outputLabel>
-                <p:outputLabel style="font-size: large">#{"Customer name: "+=customerInfo.customer.firstName +=" "+= customerInfo.customer.lastName}</p:outputLabel> 
+                    <p:outputLabel style="font-size: large">#{"Invoice ID: "+=invoiceEdit.invoice.invoiceId}</p:outputLabel>
+                    <p:outputLabel style="font-size: large">#{"Date of purchase: "+=invoiceEdit.invoice.orderRaisedDt}</p:outputLabel>
+                    <p:outputLabel style="font-size: large">#{"Customer name: "+=customerInfo.customer.firstName +=" "+= customerInfo.customer.lastName}</p:outputLabel> 
                 </h:panelGrid>
                 <h:form>
 
                     <h:panelGrid columns="2" styleClass="formTable">
-                        <p:outputLabel style="font-size: large">
-                            Date settled:
-                        </p:outputLabel> 
-                        <p:calendar value="#{invoiceEdit.invSettled}" mode="inline"/>
-                        <p:outputLabel style="font-size: large">
-                            Date cancelled:
-                        </p:outputLabel> 
-                        <p:calendar value="#{invoiceEdit.invCancelled}" mode="inline"/>
-                    </h:panelGrid>
-                    <p:commandButton value="Edit" 
-                                     action="#{invoiceEdit.editInvoice()}"
-                                     style="font-size: large"/>
 
+                        <p:commandButton value="Settle"
+                                         action="#{invoiceEdit.settleInv()}"
+                                         style="font-size: large"/>
+
+                        <p:commandButton value="Cancel"
+                                         action="#{invoiceEdit.cancelInv()}"
+                                         style="font-size: large"/>
+                    </h:panelGrid>
                 </h:form>
                 <br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/>

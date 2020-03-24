@@ -11,6 +11,7 @@ import entity.Order;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ import javax.persistence.TypedQuery;
  * @author Daniel Gomez
  */
 @Named(value = "feedInvoicePerCustomerList")
-@SessionScoped
+@RequestScoped
 public class FeedInvoicePerCustomerList implements Serializable {
 
     
