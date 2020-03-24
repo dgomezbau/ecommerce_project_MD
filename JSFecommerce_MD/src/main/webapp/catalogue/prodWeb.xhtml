@@ -8,17 +8,17 @@
     <body>
         <ui:composition template="./../etc/pageTemplateUser.xhtml">
             <ui:define name="content">
-
+                <div>
                 <h2>#{navigateToProductPage.prod.prodName}</h2>
-
-                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" panelWidth="800" panelHeight="370" showCaption="true">
+            
+                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" id="img-move" panelWidth="1000" panelHeight="600" >
                     <p:graphicImage name="#{image}" alt="#{navigateToProductPage.prod.prodDescription}" title="#{navigateToProductPage.prod.prodName}"/>
                 </p:galleria>
                 
                 
-
+                </div>
                 <h2>#{navigateToProductPage.prod.prodDescription}</h2>
-
+                <div>
                 <h:form>
                     <h:panelGrid columns="2" styleClass="formTable">
                         Price: 
@@ -43,7 +43,7 @@
 
                 </h:form>
 
-
+                </div>
 
                 <br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/>
