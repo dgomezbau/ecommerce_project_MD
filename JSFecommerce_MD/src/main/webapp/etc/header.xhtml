@@ -26,8 +26,8 @@
             <p:menuitem value="Customers" url="./../admin/customerList.jsf" rendered="#{control.getCustom().getLevel() eq 0}" style="padding-left: 20px; padding-right: 20px; background:none; border-color: #000000"/>
             <p:menuitem value="Product Manager" url="./../admin/productManagement.jsf" rendered="#{control.getCustom().getLevel() eq 0}" style="padding-left: 20px; padding-right: 20px; background:none; border-color: #000000"/>
             <p:menuitem value="Logout" url="./../home/logoutPage.jsf" rendered="#{control.getCustom() ne null}" style="padding-left: 20px; padding-right: 20px; background:none; border-color: #000000"/>
-            <p:menuitem rendered="#{control.getCustom() ne null}" style="padding-left: 200px; padding-right: 20px;">#{"Welcome "+=control.custom.firstName} </p:menuitem>
-
+            <p:menuitem rendered="#{control.getCustom() ne null}" style="padding-left: 200px; padding-right: 20px;" disabled="true">#{"Welcome "+=control.custom.firstName}</p:menuitem>
+            
             <f:facet name="options">
                 <p:inputText value="#{searchController.searchString}"
                              placeholder="Busca tu Rollo"

@@ -84,15 +84,23 @@ public class Control implements Serializable {
     }
 
     private void obtainCustomerFromDB() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
-        EntityManager em = entityManagerFactory.createEntityManager();
+        if (this.userName == null) {
+            redirect("../errors/incorrectUser.jsf");
+        } else {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+            EntityManager em = entityManagerFactory.createEntityManager();
 
-        TypedQuery<Customer> query = em.createNamedQuery("Customer.findbyemail", Customer.class);
-        query.setParameter("email", this.userName);
-        this.custom = query.getSingleResult();
-
-        em.close();
-        entityManagerFactory.close();
+            TypedQuery<Customer> query = em.createNamedQuery("Customer.findbyemail", Customer.class);
+            query.setParameter("email", this.userName);
+            try{
+                this.custom = query.getSingleResult();
+            }catch(Exception e){
+                redirect("../errors/incorrectUser.jsf");
+            }
+            
+            em.close();
+            entityManagerFactory.close();
+        }
     }
 
     private void redirect(String page) {
@@ -108,19 +116,20 @@ public class Control implements Serializable {
 
         obtainCustomerFromDB();
 
-        if (custom == null) {
+        if (this.custom == null || this.pass == null) {
             redirect("../errors/loginError.jsf");
         } else {
             if (!custom.getPass().equals(pass)) {
                 redirect("../errors/loginError.jsf");
+                this.custom=null;
             } else {
                 this.idUser = custom.getCustId();
-                this.name = custom.getFirstName()+" "+ custom.getLastName();
+                this.name = custom.getFirstName() + " " + custom.getLastName();
                 redirect("../home/homePage.jsf");
             }
         }
     }
-    
+
     public void logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         redirect("../home/homePage.jsf");

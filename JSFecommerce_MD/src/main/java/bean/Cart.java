@@ -40,9 +40,9 @@ public class Cart implements Serializable {
     private Order order;
 
     private int amount = 1;
-    
+
     private int lastAmount = 0;
-    
+
     @Inject
     private Control ctrl;
 
@@ -80,16 +80,20 @@ public class Cart implements Serializable {
         } else {
             for (Product p : productsAndQuantity.keySet()) {
                 if (p.equals(prod)) {
-                    productsAndQuantity.remove(p);
+                    pcoin = p;
                 }
             }
+            if (pcoin != null) {
+                productsAndQuantity.remove(pcoin);
+                return pcoin;
+            }
             redirect("../cart/cartList.jsf");
-            return prod;
+            return null;
         }
     }
 
     public void addProduct(Product prod) {
-        
+
         Product pcoin = null;
 
         if (productsAndQuantity.isEmpty()) {
@@ -113,7 +117,7 @@ public class Cart implements Serializable {
     public double calculateTotalPrice() {
         double totalPrice = 0;
         Product prod = null;
- 
+
         for (Product p : productsAndQuantity.keySet()) {
             prod = p;
             totalPrice = totalPrice + (prod.getPrice() * productsAndQuantity.get(prod));
@@ -175,7 +179,7 @@ public class Cart implements Serializable {
         entityManagerFactory.close();
         redirect("../home/homePageUser.jsf");
         clearCartAfterPay();
-        
+
     }
 
     public Customer obtainOrderCustomer() {
@@ -190,8 +194,8 @@ public class Cart implements Serializable {
         productsAndQuantity.clear();
         redirect("cartList.jsf");
     }
-    
-    private void clearCartAfterPay(){
+
+    private void clearCartAfterPay() {
         productsAndQuantity.clear();
     }
 

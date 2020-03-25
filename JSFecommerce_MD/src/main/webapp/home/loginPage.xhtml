@@ -9,7 +9,7 @@
 
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                <p:fieldset legend="LOGIN">
+                <p:fieldset legend="Login">
                     <h:form>
                         <h:messages styleClass="error"/>
                         <h:panelGrid columns="2" styleClass="formTable">
@@ -19,13 +19,14 @@
                                          requiredMessage="You must enter a user"/>
 
                             Password: 
-                            <h:inputText value="#{control.pass}"
+                            <h:inputSecret value="#{control.pass}"
                                          required="true" 
                                          requiredMessage="You must enter a password"/>
 
                         </h:panelGrid>
-                        <p:commandButton value="Login" 
-                                         action="#{control.login()}"/>
+                        <h:commandButton value="Login" 
+                                         action="#{control.login()}"
+                                         styleClass="buttongeneral"/>
                     </h:form>
                     <hr/>
                     <br/>

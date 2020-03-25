@@ -40,7 +40,7 @@
                         </h:form>
 
                         <h:form>
-                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Buy" ajax="false" action="#{cart.generateOrder()}"/>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Buy" ajax="false" action="#{cart.generateOrder()}" rendered="#{cart.productsAndQuantity.size() != 0}"/>
                         </h:form>
                     </h:panelGrid>
                 </p:fieldset>
