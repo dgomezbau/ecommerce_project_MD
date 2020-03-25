@@ -9,7 +9,6 @@
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
                 <div>
-<<<<<<< HEAD
                     <h2>#{navigateToProductPage.prod.prodName}</h2>
 
                     <p:galleria value="#{navigateToProductPage.imgRef}" var="image">
@@ -49,51 +48,9 @@
                         </p:dialog>
 
                     </h:form>
-                </div>
-
-=======
-                <h2>#{navigateToProductPage.prod.prodName}</h2>
-            
-                <p:galleria value="#{navigateToProductPage.imgRef}" var="image" id="img-move" panelWidth="1000" panelHeight="600" >
-                    <p:graphicImage name="#{image}" alt="#{navigateToProductPage.prod.prodDescription}" title="#{navigateToProductPage.prod.prodName}"/>
-                </p:galleria>
                 
-                
-                </div>
-                <h2>#{navigateToProductPage.prod.prodDescription}</h2>
-                <div>
-                <h:form>
-                    <h:panelGrid columns="2" styleClass="formTable">
-                        <p:outputLabel style="font-size: large">
-                            Price
-                        </p:outputLabel> 
-                        <p:outputLabel style="font-size: large">
-                            #{navigateToProductPage.prod.price} &euro;
-                        </p:outputLabel>
-                        <p:outputLabel style="font-size: large">
-                           Amount to buy:
-                        </p:outputLabel> 
-                        <p:spinner min="1" max="100" value="#{cart.amount}"/>
-                    </h:panelGrid>
-                    <p:commandButton value="Add To Cart" 
-                                     action="#{cart.addProduct(navigateToProductPage.prod)}"
-                                     oncomplete="PF('dlg').show()"
-                                     style="font-size: large"/>
-
-                    <p:dialog header="Product Successfully added to your Cart" widgetVar="dlg" showEffect="fold" hideEffect="fold">
-                        <h:panelGrid id="display" columns="2" cellpadding="10">
-                            <h:outputText value="Product: " />
-                            <h:outputText value="#{navigateToProductPage.prod.prodName}" />
-                            <h:outputText value="Units: " />
-                            <h:outputText value="#{cart.amount}" />
-                        </h:panelGrid>
-                    </p:dialog>
-
-                </h:form>
 
                 </div>
->>>>>>> master
-
                 <br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/>
                 <br/><br/><br/><br/><br/>
