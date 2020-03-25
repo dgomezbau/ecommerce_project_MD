@@ -11,9 +11,10 @@
                 <div>
                     <h2>#{navigateToProductPage.prod.prodName}</h2>
 
-                    <p:galleria value="#{navigateToProductPage.imgRef}" var="image">
+                    <p:galleria value="#{navigateToProductPage.imgRef}" var="image" style="ui-galleria-panel{width: 100%!important}">
                         <p:graphicImage name="#{image}" alt="#{navigateToProductPage.prod.prodDescription}" 
-                                        title="#{navigateToProductPage.prod.prodName}" />
+                                        title="#{navigateToProductPage.prod.prodName}"
+                                        style="ui-galleria-panel-wraper{width: 100%!important}"/>
                     </p:galleria>
 
                     <h2>#{navigateToProductPage.prod.prodDescription}</h2>

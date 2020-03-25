@@ -11,3 +11,8 @@
 .ui-menubar{
     color: #D20005!important;
 }
+
+.ui-widget-content, .ui-datatble-even{
+    background: #D20005;
+    color:  #000000
+}
