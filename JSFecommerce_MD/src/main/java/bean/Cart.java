@@ -41,6 +41,8 @@ public class Cart implements Serializable {
 
     private int amount = 1;
     
+    private int lastAmount = 0;
+    
     @Inject
     private Control ctrl;
 
@@ -87,7 +89,7 @@ public class Cart implements Serializable {
     }
 
     public void addProduct(Product prod) {
-
+        
         Product pcoin = null;
 
         if (productsAndQuantity.isEmpty()) {
@@ -211,6 +213,14 @@ public class Cart implements Serializable {
 
     public void setCtrl(Control ctrl) {
         this.ctrl = ctrl;
+    }
+
+    public int getLastAmount() {
+        return lastAmount;
+    }
+
+    public void setLastAmount(int lastAmount) {
+        this.lastAmount = lastAmount;
     }
 
     private void redirect(String path) {

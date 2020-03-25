@@ -6,9 +6,7 @@
     <body>
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                <br/>
-                <p>Invoices</p>
-                <p:fieldset legend="Products">
+                <p:fieldset legend="Invoices">
                     <br/>
                     <p:dataTable var="Invoice"
                                  value="#{feedInvoiceList.feedInvList()}">

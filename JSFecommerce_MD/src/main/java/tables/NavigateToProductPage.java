@@ -48,8 +48,13 @@ public class NavigateToProductPage implements Serializable{
         this.prod = em.find(Product.class, prodID);   
         em.close();
         entityManagerFactory.close();
+        if(prodID==2000 || prodID==2010){
+            imgRef.add(this.ROOT_IMG + prodID + "_00.png");
+            imgRef.add(this.ROOT_IMG + prodID + "_01.png");
+        }else{
+            imgRef.add(this.ROOT_IMG + prodID + "_00.png");
+        }
         
-        imgRef.add(this.ROOT_IMG + prodID + ".jpg");
         
         redirect(this.ROOT);
     }

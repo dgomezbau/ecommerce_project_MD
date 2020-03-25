@@ -5,12 +5,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-       
+
     <body>
-        <ui:composition template="./../etc/pageTempla.xhtml">
+        <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                <br/>
-                <p>Your Order:</p>
                 <p:fieldset legend="Order Data">
                     <br/>
                     <p:dataTable var="Customer"
@@ -19,7 +17,7 @@
                         <p:column headerText="Address">"#{Customer.street} #{Customer.city} #{Customer.appt}"</p:column>
                     </p:dataTable>
                     <br/>
-                    
+
                     <p>Products</p>
                     <p:dataTable var="Product"
                                  value="#{cart.listProducts()}"
@@ -29,20 +27,21 @@
                         <p:column headerText="Amount"><h:outputText value="#{cart.productsAndQuantity.get(Product)}" /></p:column>
 
                     </p:dataTable>
-                    
+
                     <h2>Total: #{cart.calculateTotalPrice()} </h2>
                     <br/>
                 </p:fieldset>
 
                 <p:fieldset legend="Actions">
-                    <h:form>
-                        <p:commandButton style="float: left;" value="Discard" ajax="false" action="/catalogue/productList_v2"/>
-                    </h:form>
-                    
-                    <h:form>
-                        <p:commandButton value="Pay" ajax="false" action="#{cart.pay()}"/>
-                    </h:form>
+                    <h:panelGrid columns="3" styleClass="formTable">
+                        <h:form>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Discard" ajax="false" action="/catalogue/productList_v2"/>
+                        </h:form>
 
+                        <h:form>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Pay" ajax="false" action="#{cart.pay()}"/>
+                        </h:form>
+                    </h:panelGrid>
                 </p:fieldset>
 
                 <br/><br/><br/><br/><br/>

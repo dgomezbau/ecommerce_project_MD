@@ -3,35 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:o="http://omnifaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <body>
-        
+
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
+                <p:fieldset legend="LOGIN">
+                    <h:form>
+                        <h:messages styleClass="error"/>
+                        <h:panelGrid columns="2" styleClass="formTable">
+                            User: 
+                            <h:inputText value="#{control.userName}" 
+                                         required="true"
+                                         requiredMessage="You must enter a user"/>
 
-                <h:form>
-                    <h:messages styleClass="error"/>
-                    <h:panelGrid columns="2" styleClass="formTable">
-                        User: 
-                        <h:inputText value="#{control.userName}" 
-                                     required="true"
-                                     requiredMessage="You must enter a user"/>
+                            Password: 
+                            <h:inputText value="#{control.pass}"
+                                         required="true" 
+                                         requiredMessage="You must enter a password"/>
 
-                        Password: 
-                        <h:inputText value="#{control.pass}"
-                                     required="true" 
-                                     requiredMessage="You must enter a password"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Login" 
+                                         action="#{control.login()}"/>
+                    </h:form>
+                    <hr/>
+                    <br/>
 
-                    </h:panelGrid>
-                    <h:commandButton value="Login" 
-                                     action="#{control.login()}"
-                                     styleClass="buttongeneral"/>
-                </h:form>
-                <hr/>
-                <br/>
-
-                <br/>
-
+                    <br/>
+                    </p:fieldset>
             </ui:define>
         </ui:composition>
         <br/>

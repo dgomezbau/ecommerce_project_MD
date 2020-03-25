@@ -5,11 +5,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-       
+
     <body>
         <ui:composition template="./../etc/pageTemplate.xhtml">
             <ui:define name="content">
-                
+
                 <p:fieldset legend="Cart">
                     <br/>
                     <p:dataTable var="Product"
@@ -30,18 +30,19 @@
                 </p:fieldset>
 
                 <p:fieldset legend="Actions">
-                    <h:form>
-                        <p:commandButton style="float: left;" value="Continue shopping" ajax="false" action="/catalogue/productList_v2"/>
-                    </h:form>
-                    
-                    <h:form>
-                        <p:commandButton style="float: left;" value="Clear Cart" ajax="false" action="#{cart.clearCart()}"/>
-                    </h:form>
-                    
-                    <h:form>
-                        <p:commandButton value="Buy" ajax="false" action="#{cart.generateOrder()}"/>
-                    </h:form>
+                    <h:panelGrid columns="3" styleClass="formTable">
+                        <h:form>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Continue shopping" ajax="false" action="/catalogue/productList_v2"/>
+                        </h:form>
 
+                        <h:form>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Clear Cart" ajax="false" action="#{cart.clearCart()}"/>
+                        </h:form>
+
+                        <h:form>
+                            <p:commandButton style="padding-left: 20; padding-right: 20" value="Buy" ajax="false" action="#{cart.generateOrder()}"/>
+                        </h:form>
+                    </h:panelGrid>
                 </p:fieldset>
 
                 <br/><br/><br/><br/><br/>
