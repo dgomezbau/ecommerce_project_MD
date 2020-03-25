@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -20,6 +22,10 @@ import javax.persistence.TemporalType;
 @Entity(name = "PRODUCT")
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT e FROM PRODUCT e")})
+
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "Product.UpdateAdmin", query = "UPDATE PRODUCT SET prod_name = ?, prod_desc = ?, regular_price = ?, last_updated_time = ?  WHERE prod_id = ?")
+})
 
 public class Product {
 
@@ -35,7 +41,7 @@ public class Product {
     private String prodDescription;
 
     @Column(name = "REGULAR_PRICE", precision = 2)
-    private String price;
+    private double price;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_UPDATED_TIME")
@@ -44,11 +50,11 @@ public class Product {
     @ManyToMany(mappedBy = "productList", fetch = FetchType.EAGER)
     private List<Order> orderList;
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

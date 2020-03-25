@@ -49,20 +49,7 @@ public class InvoiceEdit implements Serializable{
         
         System.err.println(this.invoice.getInvoiceId());
     }
-    
-    public void editInvoice(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
-        EntityManager em = entityManagerFactory.createEntityManager();
-
-        TypedQuery<Invoice> query = em.createNamedQuery("Invoice.updateInvoiceDate", Invoice.class);
-        query.setParameter("DATE_SETTLED", this.invSettled);
-        query.setParameter("DATE_CANCELLED", this.invCancelled);
-        query.setParameter("INVOICE_ID", this.invoice.getInvoiceId());
-        query.executeUpdate();
-        
-        redirect("../admin/invoicePerCustomerList.jsf");
-        
-    }
+   
     
     public void settleInv(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");

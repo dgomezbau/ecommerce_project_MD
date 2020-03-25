@@ -53,6 +53,17 @@ public class NavigateToProductPage implements Serializable{
         
         redirect(this.ROOT);
     }
+    
+    public void productWebEdit(long prodID) {
+        this.prodId = prodID;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        this.prod = em.find(Product.class, prodID);   
+        em.close();
+        entityManagerFactory.close();
+        
+        redirect("../admin/productEdition.jsf");
+    }
 
     private void redirect(String page) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

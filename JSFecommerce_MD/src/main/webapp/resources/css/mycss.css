@@ -11,3 +11,13 @@
 .ui-datatable-header{
     background: orchid;
 }
+
+.ui-datatable, ui-widget{
+    background: orchid;
+}
+
+.ui-datatable thead th {
+    background-image: none !important;
+    background-color: #ece3a5 !important;
+    
+}

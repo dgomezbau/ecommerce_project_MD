@@ -111,16 +111,10 @@ public class Cart implements Serializable {
     public double calculateTotalPrice() {
         double totalPrice = 0;
         Product prod = null;
-        /*Iterator it = this.productsAndQuantity.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            prod =(Product)pair.getKey();
-            totalPrice = totalPrice + Double.parseDouble(prod.getPrice())*(Integer)pair.getValue();
-            it.remove();
-        }*/
+ 
         for (Product p : productsAndQuantity.keySet()) {
             prod = p;
-            totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
+            totalPrice = totalPrice + (prod.getPrice() * productsAndQuantity.get(prod));
         }
         return totalPrice;
     }
@@ -138,17 +132,8 @@ public class Cart implements Serializable {
         for (Product p : productsAndQuantity.keySet()) {
             prodList.add(p);
             prod = p;
-            totalPrice = totalPrice + (Double.parseDouble(prod.getPrice()) * productsAndQuantity.get(prod));
+            totalPrice = totalPrice + (prod.getPrice() * productsAndQuantity.get(prod));
         }
-
-        /*Iterator it = this.productsAndQuantity.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            prod =(Product)pair.getKey();
-            totalPrice = totalPrice + Double.parseDouble(prod.getPrice())*(Integer)pair.getValue();
-            prodList.add(prod);
-            it.remove();
-        }*/
 
         Order ord = new Order();
         Invoice invoice = new Invoice();
