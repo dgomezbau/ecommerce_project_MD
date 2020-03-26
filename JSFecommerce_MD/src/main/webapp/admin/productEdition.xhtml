@@ -25,13 +25,22 @@
                              <p:outputLabel style="font-size: large">
                                 Price:
                             </p:outputLabel>
-                            <p:inputText style="font-size: large" value="#{navigateToProductPage.prod.price}"/>
+                            <p:inputText id="price"  
+                                         required="true"
+                                         converterMessage="Range must be number" 
+                                         requiredMessage="Price is required" 
+                                         style="font-size: large" 
+                                         value="#{navigateToProductPage.prod.price}">
+                            </p:inputText>
+                            <p:message for="price" id="error-field"/>
                             
                         </h:panelGrid>
                         <p:commandButton value="Update" 
                                          action="#{productEdit.updateProduct(navigateToProductPage.prod)}"
                                          oncomplete="PF('dlg').show()"
-                                         style="font-size: large"/>
+                                         style="font-size: large"
+                                         process="price"
+                                         update="error-field"/>
 
                         <p:dialog header="Product Successfully added to your Cart" widgetVar="dlg" showEffect="fold" hideEffect="fold">
                             <h:panelGrid id="display" columns="2" cellpadding="10">

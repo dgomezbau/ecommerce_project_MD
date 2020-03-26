@@ -177,7 +177,7 @@ public class Cart implements Serializable {
 
         em.close();
         entityManagerFactory.close();
-        redirect("../home/homePageUser.jsf");
+        redirect("../home/homePage.jsf");
         clearCartAfterPay();
 
     }

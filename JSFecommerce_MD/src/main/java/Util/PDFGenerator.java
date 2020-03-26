@@ -34,7 +34,7 @@ public class PDFGenerator implements Serializable{
 
     public void generatePDF(Invoice inv) {
         Document document = new Document();
-
+        Invoice invoice = inv;
         String file = "inv_" + inv.getInvoiceId() + ".pdf";
         try {
             try {
@@ -50,21 +50,21 @@ public class PDFGenerator implements Serializable{
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persis");
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        Order ord = em.find(Order.class, inv.getOrderId());
+        Order ord = em.find(Order.class, invoice.getOrderId());
         Customer cus = em.find(Customer.class, ord.getCustId());
         
         em.close();
         entityManagerFactory.close();
 
         try {
-            document.add(new Paragraph("Invoice number: " + inv.getInvoiceId()));
+            document.add(new Paragraph("Invoice number: " + invoice.getInvoiceId()));
             document.add(new Paragraph("________________________________"));
             document.add(new Paragraph("Customer Data:"));
             document.add(new Paragraph("Name: " + cus.getFirstName() + " " + cus.getLastName()));
             document.add(new Paragraph("Address: " + cus.getStreet() + " " + cus.getAppt() + " " + cus.getCity() + " " + cus.getZipCode()));
             document.add(new Paragraph("________________________________"));
             document.add(new Paragraph("Order Details: " + ord.getOrderDesc()));
-            document.add(new Paragraph("Invoice date: " + inv.getOrderRaisedDt()));
+            document.add(new Paragraph("Invoice date: " + invoice.getOrderRaisedDt()));
         } catch (DocumentException ex) {
             Logger.getLogger(PDFGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
