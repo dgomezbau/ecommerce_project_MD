@@ -16,8 +16,15 @@
                         <p:column headerText="PDF">
                             <h:form>
                                 <p:commandButton
-                                    value="PDF" ajax="false" action="#{pdfgenerator.generatePDF(Invoice)}">
+                                    value="PDF" ajax="true" action="#{pdfgenerator.generatePDF(Invoice)}" oncomplete="PF('dlg').show()">
                                 </p:commandButton>
+                                <p:dialog header="PDF" widgetVar="dlg" showEffect="fold" hideEffect="fold">
+                                    <h:panelGrid id="display" columns="1" cellpadding="10">
+                                        <h:outputText value="PDF created successfully" />
+                                        <h:outputText value="Invoice id:" />
+                                        <h:outputText value="#{Invoice.invoiceId}" />
+                                    </h:panelGrid>
+                                </p:dialog>
                             </h:form>
 
                         </p:column>
