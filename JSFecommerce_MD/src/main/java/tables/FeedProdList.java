@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ import javax.persistence.TypedQuery;
  * @author Daniel Gomez
  */
 @Named(value = "feedProdList")
-@SessionScoped
+@RequestScoped
 public class FeedProdList implements Serializable {
 
     private List<Product> listProd = new ArrayList<>();
